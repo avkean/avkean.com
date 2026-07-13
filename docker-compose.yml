@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: avkean-web
+    restart: unless-stopped
+    networks:
+      - proxy_net
+      - default
+
+  tor:
+    build:
+      context: ./tor
+      dockerfile: Dockerfile
+    container_name: avkean-tor
+    restart: unless-stopped
+    depends_on:
+      - web
+    volumes:
+      # hidden service keypair lives on the server only, never in git
+      - ./tor/keys:/keys:ro
+    networks:
+      - default
+
+networks:
+  proxy_net:
+    external: true
