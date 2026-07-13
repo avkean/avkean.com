@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import '@fontsource/commit-mono/500.css';
+import '@fontsource/commit-mono/700.css';
+---
+
+<Base title="404 · avner" themeColor="#141414">
+  <main>
+    <h1>404</h1>
+    <p>Nothing runs here. Not even quietly.</p>
+    <p><a href="/">&larr; avkean.com</a></p>
+  </main>
+</Base>
+
+<style>
+  :root {
+    --bg: oklch(0.14 0 0);
+    --ink: oklch(0.94 0.008 355);
+    --muted: oklch(0.68 0.012 355);
+    --red: oklch(0.63 0.2 355);
+    --rose: oklch(0.8 0.1 355);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Commit Mono', ui-monospace, monospace;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+  }
+
+  main {
+    max-width: 62ch;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 18vh, 12rem) 1.5rem 3rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    color: var(--muted);
+  }
+  p + p {
+    margin-top: 1.25rem;
+  }
+
+  a {
+    color: var(--rose);
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    color: var(--red);
+  }
+  a:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+</style>

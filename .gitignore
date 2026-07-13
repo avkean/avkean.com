@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# local context, not for the repo
+PRODUCT.md
+refs/
+src/sketches/
+.agents/
+.claude/
+.codex/
+.cursor/
+.gemini/
+.impeccable/
+.kiro/

@@ -1,0 +1,209 @@
+---
+import Base from '../layouts/Base.astro';
+import '@fontsource/commit-mono/500.css';
+import '@fontsource/commit-mono/700.css';
+
+// each letter drawn from 5x7 cells of itself
+const glyphs: Record<string, string[]> = {
+  a: [' ### ', '#   #', '#   #', '#####', '#   #', '#   #', '#   #'],
+  v: ['#   #', '#   #', '#   #', '#   #', '#   #', ' # # ', '  #  '],
+  n: ['#   #', '##  #', '##  #', '# # #', '#  ##', '#  ##', '#   #'],
+  e: ['#####', '#    ', '#    ', '#### ', '#    ', '#    ', '#####'],
+  r: ['#### ', '#   #', '#   #', '#### ', '# #  ', '#  # ', '#   #'],
+};
+const word = 'avner';
+const wordmark = Array.from({ length: 7 }, (_, row) =>
+  word
+    .split('')
+    .map((ch) => glyphs[ch][row].replaceAll('#', ch))
+    .join('  ')
+).join('\n');
+---
+
+<Base title="avner" themeColor="#141414">
+  <main>
+    <header>
+      <h1>
+        <span class="sr-only">avner</span>
+        <pre class="wordmark" aria-hidden="true">{wordmark}</pre>
+      </h1>
+      <p class="alias">(or avkean)</p>
+    </header>
+
+    <p>
+      I build software and work on security, systems, and networks. I like
+      understanding things properly.
+    </p>
+
+    <p>
+      Most of what I make is on <a href="https://github.com/avkean">GitHub</a>.
+      Everything else runs quietly on servers you&rsquo;ll never see.
+    </p>
+
+    <section aria-label="Contact">
+      <h2>Contact</h2>
+      <dl>
+        <div><dt>Mail</dt><dd><a href="mailto:hi@avkean.com">hi@avkean.com</a></dd></div>
+        <div><dt>Signal</dt><dd>@avner.21</dd></div>
+        <div>
+          <dt>PGP</dt>
+          <dd>
+            <a href="/pgp.asc" class="fp">91B9 4137 9029 3533 4C18&nbsp; C2C6 3CBC 2478 EB01 0AA7</a>
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <footer>
+      <p>
+        <span>&copy; avner</span> ·
+        <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> ·
+        <a href="https://github.com/avkean/avkean.com">source</a>
+      </p>
+      <p class="onion-line">
+        <a
+          href="http://avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion"
+          rel="me"
+          class="onion"
+          >avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion</a
+        >
+      </p>
+    </footer>
+  </main>
+</Base>
+
+<style>
+  :root {
+    --bg: oklch(0.14 0 0);
+    --ink: oklch(0.94 0.008 355);
+    --muted: oklch(0.68 0.012 355);
+    --red: oklch(0.63 0.2 355);
+    --rose: oklch(0.8 0.1 355);
+    --rule: oklch(0.32 0.01 355);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Commit Mono', ui-monospace, monospace;
+    /* light-on-dark reads thin; everything a notch up */
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+  }
+
+  main {
+    max-width: 62ch;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 9vh, 6rem) 1.5rem 3rem;
+    display: flow-root;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .wordmark {
+    margin: 0;
+    font-family: inherit;
+    font-weight: 700;
+    color: var(--red);
+    /* 33 cells x ~0.65em must fit the measure */
+    font-size: min(calc((100vw - 3rem) / 21.5), 1.7rem);
+    line-height: 0.85;
+    white-space: pre;
+  }
+
+  .alias {
+    color: var(--muted);
+    margin-top: 1.25rem;
+  }
+
+  header {
+    border-bottom: 1px dashed var(--rule);
+    padding-bottom: 1.75rem;
+    margin-bottom: 3rem;
+  }
+
+  main > p {
+    max-width: 56ch;
+  }
+  header + p {
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    color: var(--rose);
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    color: var(--red);
+  }
+  a:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  section {
+    margin-top: 3.25rem;
+  }
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    border-bottom: 1px dashed var(--rule);
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.1rem;
+  }
+  dl {
+    margin: 0;
+  }
+  dl > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1ch;
+    margin-bottom: 0.35rem;
+  }
+  dt {
+    color: var(--muted);
+  }
+  dt::after {
+    content: ':';
+  }
+  dd {
+    margin: 0;
+  }
+
+  footer {
+    margin-top: 3.75rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  footer a,
+  footer span {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  footer p {
+    margin: 0;
+  }
+  .onion-line {
+    margin-top: 0.4rem;
+    font-size: 0.8125rem;
+  }
+  footer a.onion {
+    white-space: normal;
+    line-break: anywhere;
+    overflow-wrap: anywhere;
+  }
+
+</style>
