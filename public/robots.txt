@@ -1,7 +1,3 @@
-# avkean.com
-# Search engines are welcome. AI training and scraping crawlers are not.
-# Advisory only: this stops the crawlers that choose to honour it.
-
 User-agent: *
 Allow: /
 
@@ -19,7 +15,7 @@ User-agent: Claude-Web
 User-agent: anthropic-ai
 Disallow: /
 
-# Google AI. Google-Extended does not affect Googlebot or search ranking.
+# Google
 User-agent: Google-Extended
 User-agent: GoogleOther
 User-agent: Google-CloudVertexBot
@@ -27,11 +23,11 @@ User-agent: Google-NotebookLM
 User-agent: Gemini-Deep-Research
 Disallow: /
 
-# Apple AI. Applebot itself stays allowed, it feeds Siri and Spotlight search.
+# Apple
 User-agent: Applebot-Extended
 Disallow: /
 
-# Meta AI. facebookexternalhit stays allowed, it renders link previews.
+# Meta
 User-agent: meta-externalagent
 User-agent: meta-externalfetcher
 User-agent: meta-webindexer
@@ -52,7 +48,7 @@ User-agent: PerplexityBot
 User-agent: Perplexity-User
 Disallow: /
 
-# Common Crawl, feeds most public training sets
+# Common Crawl
 User-agent: CCBot
 Disallow: /
 
@@ -70,7 +66,7 @@ User-agent: AI2Bot
 User-agent: Ai2Bot-Dolma
 Disallow: /
 
-# Dataset builders and bulk scrapers
+# Dataset builders and scrapers
 User-agent: Diffbot
 User-agent: ImagesiftBot
 User-agent: img2dataset
@@ -86,7 +82,7 @@ User-agent: SemrushBot-OCOB
 User-agent: SemrushBot-SWA
 Disallow: /
 
-# Answer engines and browsing agents
+# Answer engines and agents
 User-agent: YouBot
 User-agent: DuckAssistBot
 User-agent: iAskBot
