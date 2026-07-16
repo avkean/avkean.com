@@ -1,0 +1,102 @@
+# avkean.com
+# Search engines are welcome. AI training and scraping crawlers are not.
+# Advisory only: this stops the crawlers that choose to honour it.
+
+User-agent: *
+Allow: /
+
+# OpenAI
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+Disallow: /
+
+# Anthropic
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+Disallow: /
+
+# Google AI. Google-Extended does not affect Googlebot or search ranking.
+User-agent: Google-Extended
+User-agent: GoogleOther
+User-agent: Google-CloudVertexBot
+User-agent: Google-NotebookLM
+User-agent: Gemini-Deep-Research
+Disallow: /
+
+# Apple AI. Applebot itself stays allowed, it feeds Siri and Spotlight search.
+User-agent: Applebot-Extended
+Disallow: /
+
+# Meta AI. facebookexternalhit stays allowed, it renders link previews.
+User-agent: meta-externalagent
+User-agent: meta-externalfetcher
+User-agent: meta-webindexer
+Disallow: /
+
+# Amazon
+User-agent: Amazonbot
+User-agent: bedrockbot
+Disallow: /
+
+# ByteDance
+User-agent: Bytespider
+User-agent: TikTokSpider
+Disallow: /
+
+# Perplexity
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Disallow: /
+
+# Common Crawl, feeds most public training sets
+User-agent: CCBot
+Disallow: /
+
+# Other model vendors
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: MistralAI-User
+User-agent: DeepSeekBot
+User-agent: PanguBot
+User-agent: TongyiBot
+User-agent: YiyanBot
+User-agent: ChatGLM-Spider
+User-agent: SBIntuitionsBot
+User-agent: AI2Bot
+User-agent: Ai2Bot-Dolma
+Disallow: /
+
+# Dataset builders and bulk scrapers
+User-agent: Diffbot
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: LAIONDownloader
+User-agent: omgili
+User-agent: omgilibot
+User-agent: Webzio-Extended
+User-agent: VelenPublicWebCrawler
+User-agent: FriendlyCrawler
+User-agent: ICC-Crawler
+User-agent: Timpibot
+User-agent: SemrushBot-OCOB
+User-agent: SemrushBot-SWA
+Disallow: /
+
+# Answer engines and browsing agents
+User-agent: YouBot
+User-agent: DuckAssistBot
+User-agent: iAskBot
+User-agent: LinerBot
+User-agent: PhindBot
+User-agent: ExaBot
+User-agent: TavilyBot
+User-agent: FirecrawlAgent
+User-agent: Crawl4AI
+User-agent: Brightbot
+User-agent: Andibot
+User-agent: QuillBot
+Disallow: /
