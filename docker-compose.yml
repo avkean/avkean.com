@@ -9,6 +9,25 @@ services:
       - proxy_net
       - default
 
+  i2pd:
+    image: purplei2p/i2pd:latest-release
+    container_name: avkean-i2pd
+    restart: unless-stopped
+    depends_on:
+      - web
+    volumes:
+      - ./i2p/i2pd.conf:/home/i2pd/data/i2pd.conf:ro
+      - ./i2p/tunnels.conf:/home/i2pd/data/tunnels.conf:ro
+      # eepsite keypair lives on the server only, never in git
+      - ./i2p/keys/avkean-i2p-keys.dat:/home/i2pd/data/avkean-i2p-keys.dat:ro
+      - i2pd_data:/home/i2pd/data
+    ports:
+      # NTCP2/SSU2 so the router is reachable, not firewalled
+      - "24688:24688/tcp"
+      - "24688:24688/udp"
+    networks:
+      - default
+
   tor:
     build:
       context: ./tor
@@ -26,3 +45,6 @@ services:
 networks:
   proxy_net:
     external: true
+
+volumes:
+  i2pd_data:

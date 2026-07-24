@@ -6,6 +6,9 @@ dist/
 # hidden service keypair, server-side only
 tor/keys/
 
+# eepsite keypair, server-side only
+i2p/keys/
+
 # local context, not for the repo
 PRODUCT.md
 refs/
