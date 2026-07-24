@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="mirrors · avner"
+  themeColor="#0e0e0e"
+  description="This site is also on Tor, I2P, and dn42."
+>
+  <main>
+    <PageHeader title="mirrors" />
+
+    <p>
+      The same site, served over a few different networks. It all runs on
+      <a href="/infra/">my infra</a>.
+    </p>
+
+    <section>
+      <h2>Addresses</h2>
+      <dl>
+        <div>
+          <dt>Clearnet</dt><dd><a href="https://avkean.com/">avkean.com</a></dd>
+        </div>
+        <div>
+          <dt>Tor</dt><dd><a href="http://avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion" rel="me noopener" target="_blank">avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion</a></dd>
+        </div>
+        <div>
+          <dt>I2P</dt><dd><a href="http://avkeanm7ldgvhz36zij3ntphilipw2dc43j4rhqumzvmh7usanta.b32.i2p" rel="me noopener" target="_blank">avkeanm7ldgvhz36zij3ntphilipw2dc43j4rhqumzvmh7usanta.b32.i2p</a></dd>
+        </div>
+        <div>
+          <dt>dn42</dt><dd><a href="http://avkean.dn42" rel="me noopener" target="_blank">avkean.dn42</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <Footer />
+  </main>
+</Base>

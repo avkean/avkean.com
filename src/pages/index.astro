@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import '../styles/fonts.css';
+import Footer from '../components/Footer.astro';
 
 // each letter drawn from 5x7 cells of itself
 const glyphs: Record<string, string[]> = {
@@ -41,95 +41,31 @@ const wordmark = Array.from({ length: 7 }, (_, row) =>
       Everything else runs quietly on servers you&rsquo;ll never see.
     </p>
 
-    <section aria-label="Contact">
+    <p class="go"><a href="/infra/">&rarr; my infra</a></p>
+
+    <section>
       <h2>Contact</h2>
       <dl>
-        <div><dt>Mail</dt><dd><a href="mailto:hi@avkean.com">hi@avkean.com</a></dd></div>
         <div>
-          <dt>Signal</dt>
-          <dd>
-            <a
-              href="https://signal.me/#eu/BUbfJCUO8mhpt72XtE95_lws5L9OeiW4T30yrcwtv3KJdsqXn8RGx5jVgxh94s-m"
-              target="_blank"
-              rel="noopener">@avner.21</a
-            >
-          </dd>
+          <dt>Mail</dt><dd><a href="mailto:hi@avkean.com">hi@avkean.com</a></dd>
         </div>
         <div>
-          <dt>Matrix</dt>
-          <dd>
-            <a href="https://matrix.to/#/@avner:avkean.com" target="_blank" rel="noopener"
-              >@avner:avkean.com</a
-            >
-          </dd>
+          <dt>Signal</dt><dd><a href="https://signal.me/#eu/BUbfJCUO8mhpt72XtE95_lws5L9OeiW4T30yrcwtv3KJdsqXn8RGx5jVgxh94s-m" target="_blank" rel="noopener">@avner.21</a></dd>
         </div>
         <div>
-          <dt>PGP</dt>
-          <dd>
-            <a href="/pgp.asc" class="fp">91B9 4137 9029 3533 4C18&nbsp; C2C6 3CBC 2478 EB01 0AA7</a>
-          </dd>
+          <dt>Matrix</dt><dd><a href="https://matrix.to/#/@avner:avkean.com" target="_blank" rel="noopener">@avner:avkean.com</a></dd>
+        </div>
+        <div>
+          <dt>PGP</dt><dd><a href="/pgp.asc" class="fp">91B9 4137 9029 3533 4C18&nbsp; C2C6 3CBC 2478 EB01 0AA7</a></dd>
         </div>
       </dl>
     </section>
 
-    <footer>
-      <p>
-        <span>&copy; avner</span> ·
-        <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener"
-          >CC BY-NC-ND 4.0</a
-        > ·
-        <a href="https://github.com/avkean/avkean.com" target="_blank" rel="noopener">source</a>
-      </p>
-      <p class="onion-line">
-        <a
-          href="http://avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion"
-          rel="me noopener"
-          target="_blank"
-          class="onion"
-          >avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion</a
-        >
-      </p>
-    </footer>
+    <Footer />
   </main>
 </Base>
 
 <style>
-  :root {
-    --bg: oklch(0.165 0 0);
-    --ink: oklch(0.9 0.008 355);
-    --muted: oklch(0.68 0.012 355);
-    --red: oklch(0.63 0.2 355);
-    --rose: oklch(0.8 0.1 355);
-    --rule: oklch(0.32 0.01 355);
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Commit Mono', ui-monospace, monospace;
-    /* light-on-dark reads thin; everything a notch up */
-    font-size: 1.0625rem;
-    font-weight: 500;
-    line-height: 1.85;
-    letter-spacing: 0.02em;
-  }
-
-  main {
-    max-width: 62ch;
-    margin-inline: auto;
-    padding: clamp(2.5rem, 9vh, 6rem) 1.5rem 3rem;
-    display: flow-root;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
   .wordmark {
     margin: 0;
     font-family: inherit;
@@ -143,88 +79,27 @@ const wordmark = Array.from({ length: 7 }, (_, row) =>
 
   .alias {
     color: var(--muted);
-    margin-top: 1.25rem;
+    margin-top: var(--s1);
   }
 
   header {
     border-bottom: 1px dashed var(--rule);
-    padding-bottom: 1.75rem;
-    margin-bottom: 3rem;
+    padding-bottom: var(--s2);
+    margin-bottom: var(--s4);
   }
 
   main > p {
     max-width: 56ch;
   }
   header + p {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--s2);
+  }
+  .go {
+    margin-top: var(--s2);
   }
 
-  a {
-    color: var(--rose);
-    text-decoration: underline;
-    text-decoration-color: var(--red);
-    text-underline-offset: 0.25em;
-    text-decoration-thickness: 1px;
-  }
-  a:hover {
-    color: var(--red);
-  }
-  a:focus-visible {
-    outline: 2px solid var(--red);
-    outline-offset: 3px;
-    border-radius: 1px;
-  }
-
-  section {
-    margin-top: 3.25rem;
-  }
-  h2 {
-    font-size: 1rem;
-    font-weight: 700;
-    border-bottom: 1px dashed var(--rule);
-    padding-bottom: 0.6rem;
-    margin-bottom: 1.1rem;
-  }
-  dl {
-    margin: 0;
-  }
-  dl > div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 1ch;
-    margin-bottom: 0.35rem;
-  }
-  dt {
+  .fp {
     color: var(--muted);
+    text-decoration-color: currentColor;
   }
-  dt::after {
-    content: ':';
-  }
-  dd {
-    margin: 0;
-  }
-
-  footer {
-    margin-top: 3.75rem;
-    color: var(--muted);
-    font-size: 0.875rem;
-  }
-  footer a,
-  footer span {
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  footer p {
-    margin: 0;
-  }
-  .onion-line {
-    margin-top: 0.4rem;
-    font-size: 0.8125rem;
-  }
-  footer a.onion {
-    white-space: normal;
-    line-break: anywhere;
-    overflow-wrap: anywhere;
-  }
-
 </style>

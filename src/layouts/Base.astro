@@ -1,11 +1,19 @@
 ---
+import '../styles/fonts.css';
+import '../styles/site.css';
+
 interface Props {
   title?: string;
   themeColor?: string;
+  description?: string;
+  noindex?: boolean;
 }
-const { title = 'avner', themeColor = '#1a1a1a' } = Astro.props;
-const description =
-  'I build software and work on security, systems, and networks. I like understanding things properly.';
+const {
+  title = 'avner',
+  themeColor = '#1a1a1a',
+  description = 'I build software and work on security, systems, and networks. I like understanding things properly.',
+  noindex = false,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // no upgrade-insecure-requests: the onion mirror is http-only
 const csp =
@@ -22,10 +30,18 @@ const csp =
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content={themeColor} />
-    <link rel="canonical" href={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <link rel="canonical" href={canonical} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:url" content={canonical} />
+        </>
+      )
+    }
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
@@ -48,10 +64,5 @@ const csp =
     font-kerning: normal;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-  }
-  h1,
-  h2,
-  p {
-    margin: 0;
   }
 </style>

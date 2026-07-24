@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://avkean.com/sitemap-index.xml
+
 # OpenAI
 User-agent: GPTBot
 User-agent: OAI-SearchBot

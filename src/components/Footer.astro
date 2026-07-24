@@ -1,0 +1,14 @@
+---
+const onMirrors = Astro.url.pathname.replace(/\/$/, '') === '/mirrors';
+---
+
+<footer>
+  <p>
+    <span>&copy; avner</span> ·
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener"
+      >CC BY-NC-ND 4.0</a
+    > ·
+    <a href="https://github.com/avkean/avkean.com" target="_blank" rel="noopener">source</a> ·
+    {onMirrors ? <span>mirrors</span> : <a href="/mirrors/">mirrors</a>}
+  </p>
+</footer>

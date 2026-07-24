@@ -1,0 +1,192 @@
+:root {
+  --bg: oklch(0.165 0 0);
+  --ink: oklch(0.9 0.008 355);
+  --muted: oklch(0.68 0.012 355);
+  --red: oklch(0.63 0.2 355);
+  --rose: oklch(0.8 0.1 355);
+  --rule: oklch(0.32 0.01 355);
+  --chip: oklch(0.215 0.012 355);
+  --chip-edge: oklch(0.27 0.012 355);
+
+  /* spacing scale */
+  --s0: 0.5rem;
+  --s1: 1rem;
+  --s2: 1.5rem;
+  --s3: 2.5rem;
+  --s4: 3.5rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Commit Mono', ui-monospace, monospace;
+  /* light-on-dark reads thin; everything a notch up */
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+}
+
+/* element reset; specific margins below and in scoped styles win by order */
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+p + p {
+  margin-top: var(--s1);
+}
+
+main {
+  max-width: 62ch;
+  margin-inline: auto;
+  padding: clamp(2.5rem, 9vh, 6rem) 1.5rem 3rem;
+  display: flow-root;
+}
+
+a {
+  color: var(--rose);
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  color: var(--red);
+}
+a:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+section {
+  margin-top: var(--s4);
+}
+
+/* section label: the rule hugs it; the larger gap below marks the body */
+h2 {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 0.5rem;
+  margin-bottom: var(--s2);
+}
+
+/* field list: aligned label column, wrapped values hang under the value column */
+dl {
+  margin: 0;
+  line-height: 1.7;
+}
+dl > div {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1ch;
+  margin-bottom: 0.7rem;
+}
+dt {
+  color: var(--muted);
+}
+dt::after {
+  content: ':';
+}
+dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* item list: bold name above, short description below */
+dl.stack > div {
+  display: block;
+  margin-bottom: var(--s2);
+}
+dl.stack dt {
+  color: var(--ink);
+  font-weight: 700;
+}
+dl.stack dt::after {
+  content: none;
+}
+
+/* machine values: one click selects the whole thing */
+code {
+  font-family: inherit;
+  font-size: 0.875em;
+  background: var(--chip);
+  border: 1px solid var(--chip-edge);
+  border-radius: 4px;
+  padding: 0.05em 0.4em;
+  overflow-wrap: anywhere;
+  user-select: all;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* placeholder segments inside chips read as fill-me-in, not copy-me */
+code var {
+  font-style: normal;
+  color: var(--muted);
+}
+
+::selection {
+  background: var(--red);
+  color: var(--bg);
+}
+
+.note {
+  color: var(--muted);
+}
+* + .note {
+  margin-top: var(--s1);
+}
+
+footer {
+  margin-top: var(--s4);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+footer p {
+  margin: 0;
+}
+footer a,
+footer span {
+  color: var(--muted);
+  white-space: nowrap;
+}
+footer a {
+  text-decoration-color: currentColor;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #111;
+  }
+  a,
+  footer a,
+  footer span,
+  dt,
+  .note {
+    color: #111;
+  }
+  code {
+    background: none;
+    border-color: #999;
+  }
+}
