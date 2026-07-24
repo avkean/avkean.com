@@ -18,8 +18,8 @@ services:
     volumes:
       - ./i2p/i2pd.conf:/home/i2pd/data/i2pd.conf:ro
       - ./i2p/tunnels.conf:/home/i2pd/data/tunnels.conf:ro
-      # eepsite keypair lives on the server only, never in git
-      - ./i2p/keys/avkean-i2p-keys.dat:/home/i2pd/data/avkean-i2p-keys.dat:ro
+      # eepsite keypairs live on the server only, never in git
+      - ./i2p/keys:/home/i2pd/data/keys:ro
       - i2pd_data:/home/i2pd/data
     ports:
       # NTCP2/SSU2 so the router is reachable, not firewalled
