@@ -13,6 +13,9 @@
 - Ground is `#080a0e`.
 - Canvas maximum width is 700px with one continuous 28px minimum gutter.
 - Spacing uses 14px, 28px, 42px, 56px, and 84px tokens.
+- Semantic spacing tiers keep 14px/28px inside groups, 42px between major
+  mobile regions, 56px between major desktop regions, and use the 84px token
+  only for the footer gap on tall desktop viewports.
 - Typography uses system serif plus Commit Mono and no more than four effective sizes.
 - Plate fills are steel blue `#718aa3`, muted violet `#827a9c`, and dusty plum `#9a718a`.
 - There is no ochre, amber, yellow, beige, or brown.
@@ -95,8 +98,9 @@ Implement:
 ```
 
 Use 32px/42px titles, 19px/28px prose, and 16px/28px mono. Keep the cool
-round-6 text palette. Use 42px for major section separation and 28px for
-ordinary groups.
+round-6 text palette. Use semantic `--shell-top`, `--major-gap`,
+`--section-gap`, and `--footer-gap` tokens so vertical rhythm responds to
+viewport class without introducing off-grid spacing.
 
 - [ ] **Step 2: Recompose the home page**
 

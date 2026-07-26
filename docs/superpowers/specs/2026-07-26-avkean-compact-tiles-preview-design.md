@@ -38,9 +38,12 @@ The primary reading path is:
 This path stays vertical. Prose and technical fields never split into
 competing desktop columns.
 
-Related information stays close. Major groups use 42px separation; ordinary
-relationships use 14px or 28px. The 56px and 84px tokens are reserved for
-outer composition rather than repeated between every section.
+Related information stays close. Captions and attached labels use 14px,
+ordinary prose and subgroups use 28px, and major regions use 42px on narrow
+screens or 56px on desktop. On desktop viewports at least 1000px tall, the
+shell opening grows to 56px and the final footer separation to 84px. This
+height response uses the existing spacing tokens rather than arbitrary
+viewport-unit values.
 
 ## Composition
 
@@ -139,6 +142,8 @@ There is no ochre, amber, yellow, beige, or brown.
 
 - Canvas remains capped at 700px so the composition has a natural reading
   measure and does not become a thin band inside a wide frame.
+- Major regions use 56px separation. Tall desktop viewports promote only the
+  shell opening and footer gap, leaving compact relationships unchanged.
 - Home wordmark spans the canvas and uses a corrected view box so its painted
   bounds align with the content frame.
 - Prose, service, contact, node, and network fields remain one column.
@@ -156,6 +161,8 @@ There is no ochre, amber, yellow, beige, or brown.
 
 - Header becomes two rows without hiding navigation.
 - Side clearance is 28px.
+- Major regions retain 42px separation instead of collapsing to the ordinary
+  28px prose rhythm.
 - Wordmark scales to the available content width.
 - Every plate group becomes one column.
 - Labels remain visually close to their values.
