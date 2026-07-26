@@ -52,12 +52,12 @@ viewport-unit values.
 - Centered canvas with a maximum width of 700px.
 - The canvas uses one continuous rule: 28px minimum side clearance, then a
   centered 700px cap. It does not jump to a different gutter at a breakpoint.
-- Header is one 84px row at every width. The functional `~` home anchor sits
+- Header is one 84px row at every width. The plain-language `about` anchor sits
   on the left and the three named destinations sit on the right.
 - No separate text logo appears in the header. The full self-similar wordmark
   remains the home page's identity object.
 - A single low-contrast rule anchors the header. No boxes surround the page.
-- Persistent navigation is `~ / infra / dn42 / mirrors`.
+- Persistent navigation is `about / infra / dn42 / mirrors`.
 - The current page uses a short dusty-plum bar, not a badge or filled pill.
 - Footer follows the content naturally. It is not forced to the viewport
   bottom when a page is short.
@@ -69,8 +69,16 @@ viewport-unit values.
 - The wordmark uses five closely related cool tones from steel blue through
   dusty plum.
 - The alias sits 14px below the mark.
-- Introductory prose sits immediately below as one readable group rather than
-  being pushed to the far side of the viewport.
+- The first paragraph becomes a borderless typographic portrait on the dark
+  ground. Its factual wording stays unchanged.
+- Only `software`, `security`, `systems`, `networks`, and `properly.` carry
+  the five wordmark tones. Connective prose remains near-white, so color is
+  distributed through meaning rather than through filled bands.
+- On desktop, line breaks and the right-edge `properly.` beat use the full
+  canvas. On phones, type and wrapping become quieter so the wordmark remains
+  the first identity object.
+- The portrait has no background fill, stripe, card, border, icon, diagram,
+  gradient, or extra copy.
 - Contact details form one compact vertical field at every width.
 - One faint rule introduces the contact field. Individual entries are
   separated by rhythm rather than repeated row rules, so the field does not
@@ -115,12 +123,15 @@ viewport-unit values.
 
 ## Typography
 
-The preview uses two families and four effective sizes:
+The preview uses two families and four CSS text sizes:
 
+- system serif, 42px/56px, the desktop closing statement beat
 - system serif, 32px/42px, page titles
 - system serif, 19px/28px, prose and important plate copy
 - Commit Mono, 16px/28px, navigation, labels, values, and footer
-- SVG wordmark geometry, responsive within its view box
+
+The SVG wordmark geometry remains responsive within its view box rather than
+introducing another CSS text size.
 
 Weights are limited to regular and bold. Labels are muted through color rather
 than reduced to tiny text. No body text is smaller than 16px.
@@ -196,6 +207,8 @@ There is no ochre, amber, yellow, beige, or brown.
 
 - Four pages are reachable through the persistent navigation.
 - The home wordmark is the immediate visual focus.
+- The home portrait introduces restrained color without a filled stripe or
+  flag-like field.
 - Body copy is visibly larger and content groups are materially denser than
   round 6.
 - Prose and data use one continuous reading column; only the compact machine

@@ -20,7 +20,7 @@
 - Plate fills are steel blue `#7397b3`, muted violet `#918ab3`, and dusty plum `#ad819c`.
 - There is no ochre, amber, yellow, beige, or brown.
 - The 5x7 self-similar `avner` wordmark is the only identity object.
-- Persistent navigation is `~ / infra / dn42 / mirrors`.
+- Persistent navigation is `about / infra / dn42 / mirrors`.
 - No JavaScript is shipped to the browser.
 - No inline style attributes are allowed.
 - Each HTML file plus shared CSS is at most 25KB, excluding font files.
@@ -106,10 +106,12 @@ viewport class without introducing off-grid spacing.
 - [ ] **Step 2: Recompose the home page**
 
 Keep the existing wordmark text geometry and factual copy. Place the wordmark
-at the full canvas width, with alias 14px below. Follow with a compact intro
-group and a label/value contact field introduced by one faint rule. Separate
-entries with rhythm rather than repeated rules. Retain semantic `h1` and `dl`
-markup.
+at the full canvas width, with alias 14px below. Turn the first paragraph into
+one borderless typographic portrait on the dark ground: color only the four
+work nouns and `properly.` with the five wordmark tones. Do not add filled
+bands, cards, stripes, diagrams, icons, gradients, or new copy. Keep the
+supporting paragraph and label/value contact field below with the established
+major rhythm. Retain semantic `h1`, `p`, and `dl` markup.
 
 - [ ] **Step 3: Run the contract**
 
@@ -239,7 +241,7 @@ Expected: PASS with a concise per-page summary.
 
 - [ ] **Step 1: Verify click-through navigation**
 
-Starting on home, click infra, dn42, mirrors, then `~`. Confirm the destination
+Starting on home, click infra, dn42, mirrors, then `about`. Confirm the destination
 after every click and confirm one current-page marker.
 
 - [ ] **Step 2: Verify responsive layout**
@@ -258,6 +260,7 @@ node refs/redesign6/qa.mjs
 CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-spacing.mjs
 CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-refinements.mjs
 CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-responsive.mjs
+CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-home-experience.mjs
 ```
 
 Expected: no unexplained detector findings and all structural, spacing,
