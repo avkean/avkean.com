@@ -17,15 +17,15 @@
   mobile regions, 56px between major desktop regions, and use the 84px token
   only for the footer gap on tall desktop viewports.
 - Typography uses system serif plus Commit Mono and no more than four effective sizes.
-- Plate fills are steel blue `#718aa3`, muted violet `#827a9c`, and dusty plum `#9a718a`.
+- Plate fills are steel blue `#7397b3`, muted violet `#918ab3`, and dusty plum `#ad819c`.
 - There is no ochre, amber, yellow, beige, or brown.
 - The 5x7 self-similar `avner` wordmark is the only identity object.
 - Persistent navigation is `~ / infra / dn42 / mirrors`.
 - No JavaScript is shipped to the browser.
 - No inline style attributes are allowed.
 - Each HTML file plus shared CSS is at most 25KB, excluding font files.
-- The prototype must not overflow horizontally at 320, 375, 639, 640, 768,
-  1280, or 1600px.
+- The prototype must not overflow horizontally at 320, 360, 375, 639, 640,
+  768, 1280, or 1600px.
 
 ---
 
@@ -47,7 +47,8 @@ For every page, assert one `h1`, four primary-navigation links, one
 25,600 bytes. Assert that the home page contains `class="wordmark"`; infra
 contains `class="plates machines"`; dn42 contains `class="plates nodes"`; and
 mirrors contains `class="plates addresses"`. Assert that CSS contains the
-exact three fill values and `max-width: 700px`.
+700px canvas contract. Palette clarity and contrast are browser-rendered
+contracts in `qa-refinements.mjs`, rather than brittle source-string checks.
 
 - [ ] **Step 2: Run the contract and verify the red state**
 
@@ -180,7 +181,9 @@ endpoint, WireGuard key, link-local, IPv4, and IPv6 values. Apply
 - [ ] **Step 3: Build the ground-level network field**
 
 Render ASN, IPv4, IPv6, registry, contact, and looking glass in a compact
-three-column desktop grid that collapses to one column on phones.
+label/value field. On desktop use proportional `1fr 2fr` rails so values
+begin about one third of the way across the canvas. Use a 126px label rail on
+phones while the supplied values fit, then stack the field below 375px.
 
 - [ ] **Step 4: Run the contract**
 
@@ -203,6 +206,10 @@ Expected: dn42 assertions pass; mirrors plate assertion still fails.
 Use `class="plates addresses"` with clearnet, Tor, I2P, and dn42 rows. Give
 each row a compact mono label and the exact supplied address. Cycle the three
 cool fill roles without introducing another hue.
+
+Within the I2P row, use a nested definition list with `name` and `b32`
+sublabels. Put the memorable `avkean.i2p` name first and the complete B32
+address second.
 
 - [ ] **Step 2: Verify long values**
 
@@ -237,9 +244,9 @@ after every click and confirm one current-page marker.
 
 - [ ] **Step 2: Verify responsive layout**
 
-At 320, 375, 639, 640, 768, 1280, and 1600px, inspect all four pages for
+At 320, 360, 375, 639, 640, 768, 1280, and 1600px, inspect all four pages for
 horizontal overflow. Visually review home at 1280 and 320, infra at 1280,
-dn42 at 375, and mirrors at 320.
+dn42 at 360 and 375, and mirrors at 320.
 
 - [ ] **Step 3: Run mechanical design checks**
 
@@ -248,9 +255,13 @@ Run:
 ```bash
 node .agents/skills/impeccable/scripts/detect.mjs --json --scope layout refs/redesign6
 node refs/redesign6/qa.mjs
+CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-spacing.mjs
+CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-refinements.mjs
+CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-responsive.mjs
 ```
 
-Expected: no unexplained detector findings and all QA assertions pass.
+Expected: no unexplained detector findings and all structural, spacing,
+navigation, network-field, I2P, palette, and contrast assertions pass.
 
 - [ ] **Step 4: Leave the preview open**
 

@@ -52,7 +52,10 @@ viewport-unit values.
 - Centered canvas with a maximum width of 700px.
 - The canvas uses one continuous rule: 28px minimum side clearance, then a
   centered 700px cap. It does not jump to a different gutter at a breakpoint.
-- Header is one compact row on desktop and two rows on narrow screens.
+- Header is one 84px row at every width. The functional `~` home anchor sits
+  on the left and the three named destinations sit on the right.
+- No separate text logo appears in the header. The full self-similar wordmark
+  remains the home page's identity object.
 - A single low-contrast rule anchors the header. No boxes surround the page.
 - Persistent navigation is `~ / infra / dn42 / mirrors`.
 - The current page uses a short dusty-plum bar, not a badge or filled pill.
@@ -93,6 +96,11 @@ viewport-unit values.
 - Each node uses one header divider. Its internal fields rely on typographic
   grouping rather than repeated rules.
 - Network metadata returns to the dark ground in one compact vertical field.
+  On desktop, its value rail starts about one third of the way across the
+  canvas rather than clustering against the left edge.
+- The network field keeps aligned label and value rails while the supplied
+  values fit, then stacks below 375px so IPv6 never wraps solely because its
+  value rail became too narrow.
 - No topology drawing, port diagram, or unexplained network metaphor appears.
 
 ### Mirrors
@@ -100,6 +108,8 @@ viewport-unit values.
 - The explanation leads directly into four address plates.
 - Each network is a full-width row with a compact label and selectable value.
 - The plate colors move gradually from steel blue to dusty plum.
+- The I2P plate presents two explicitly labelled alternatives: the memorable
+  `avkean.i2p` name first, then the full B32 address.
 - Long onion and I2P values may wrap at safe character boundaries without
   increasing page width.
 
@@ -129,11 +139,12 @@ Text roles:
 
 Plate fills:
 
-- steel blue: `#718aa3`
-- muted violet: `#827a9c`
-- dusty plum: `#9a718a`
+- steel blue: `#7397b3`
+- muted violet: `#918ab3`
+- dusty plum: `#ad819c`
 
-Each plate fill provides at least 4.8:1 contrast with the near-black ink.
+These values lift the earlier dull palette without becoming saturated. Each
+plate fill provides at least 6:1 contrast with the near-black ink.
 There is no ochre, amber, yellow, beige, or brown.
 
 ## Responsive behavior
@@ -159,7 +170,7 @@ There is no ochre, amber, yellow, beige, or brown.
 
 ### Narrow, below 640px
 
-- Header becomes two rows without hiding navigation.
+- Header remains one 84px row without hiding navigation.
 - Side clearance is 28px.
 - Major regions retain 42px separation instead of collapsing to the ordinary
   28px prose rhythm.
@@ -191,7 +202,8 @@ There is no ochre, amber, yellow, beige, or brown.
   triptych may use parallel columns.
 - Colored plates are limited to meaningful technical groups.
 - There is no warm yellow-brown cast.
-- No horizontal overflow occurs at 320, 375, 639, 640, 768, 1280, or 1600px.
+- No horizontal overflow occurs at 320, 360, 375, 639, 640, 768, 1280, or
+  1600px.
 - Long dn42 keys and mirror addresses remain readable and selectable.
 - Each HTML file plus its shared CSS remains 25KB or less,
   excluding cached font files.
