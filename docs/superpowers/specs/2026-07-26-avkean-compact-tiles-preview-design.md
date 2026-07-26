@@ -35,6 +35,9 @@ The primary reading path is:
 4. technical detail
 5. quiet footer
 
+This path stays vertical. Prose and technical fields never split into
+competing desktop columns.
+
 Related information stays close. Major groups use 42px separation; ordinary
 relationships use 14px or 28px. The 56px and 84px tokens are reserved for
 outer composition rather than repeated between every section.
@@ -60,15 +63,14 @@ outer composition rather than repeated between every section.
 - The alias sits 14px below the mark.
 - Introductory prose sits immediately below as one readable group rather than
   being pushed to the far side of the viewport.
-- Contact details form a compact two-column field on desktop and a single
-  column on phones.
+- Contact details form one compact vertical field at every width.
 - Contact rows use alignment and a faint rule only. They are not colored
   tiles.
 
 ### Infra
 
 - A large title and one-line introduction lead.
-- Services form a dense two-column list with quiet labels and prominent
+- Services form one dense vertical list with quiet labels and prominent
   values.
 - The three machines form one horizontal plate group.
 - Each machine receives one cool fill and dark ink.
@@ -79,10 +81,10 @@ outer composition rather than repeated between every section.
 ### dn42
 
 - Peering information remains ordinary prose on the dark ground.
-- The two nodes are equal-width substantial plates at desktop sizes.
+- The two nodes are stacked substantial plates at every size.
 - Full endpoints, WireGuard keys, link-local addresses, and network addresses
   remain visible and selectable.
-- Network metadata returns to the dark ground in a compact multi-column field.
+- Network metadata returns to the dark ground in one compact vertical field.
 - No topology drawing, port diagram, or unexplained network metaphor appears.
 
 ### Mirrors
@@ -132,16 +134,15 @@ There is no ochre, amber, yellow, beige, or brown.
 
 - Canvas remains capped so text and objects stay substantial.
 - Home wordmark is nearly canvas width.
-- Service and contact fields use two columns.
+- Prose, service, contact, node, and network fields remain one column.
 - Machine plates use three columns.
-- Node plates use two columns.
 
 ### Intermediate, 640px to 959px
 
 - The same canvas remains centered with 42px side clearance.
 - Machine plates remain three columns while their internal copy simplifies
   naturally.
-- Nodes remain two columns at 760px and above, then stack below 760px.
+- Every other content group remains a single reading column.
 
 ### Narrow, below 640px
 
@@ -171,6 +172,8 @@ There is no ochre, amber, yellow, beige, or brown.
 - The home wordmark is the immediate visual focus.
 - Body copy is visibly larger and content groups are materially denser than
   round 6.
+- Prose and data use one continuous reading column; only the compact machine
+  triptych may use parallel columns.
 - Colored plates are limited to meaningful technical groups.
 - There is no warm yellow-brown cast.
 - No horizontal overflow occurs at 320, 375, 768, 1280, or 1600px.
