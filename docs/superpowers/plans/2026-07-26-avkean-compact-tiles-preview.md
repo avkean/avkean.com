@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - Ground is `#080a0e`.
-- Canvas maximum width is 896px.
+- Canvas maximum width is 700px with one continuous 28px minimum gutter.
 - Spacing uses 14px, 28px, 42px, 56px, and 84px tokens.
 - Typography uses system serif plus Commit Mono and no more than four effective sizes.
 - Plate fills are steel blue `#718aa3`, muted violet `#827a9c`, and dusty plum `#9a718a`.
@@ -21,7 +21,8 @@
 - No JavaScript is shipped to the browser.
 - No inline style attributes are allowed.
 - Each HTML file plus shared CSS is at most 25KB, excluding font files.
-- The prototype must not overflow horizontally at 320, 375, 768, 1280, or 1600px.
+- The prototype must not overflow horizontally at 320, 375, 639, 640, 768,
+  1280, or 1600px.
 
 ---
 
@@ -43,7 +44,7 @@ For every page, assert one `h1`, four primary-navigation links, one
 25,600 bytes. Assert that the home page contains `class="wordmark"`; infra
 contains `class="plates machines"`; dn42 contains `class="plates nodes"`; and
 mirrors contains `class="plates addresses"`. Assert that CSS contains the
-exact three fill values and `max-width: 896px`.
+exact three fill values and `max-width: 700px`.
 
 - [ ] **Step 2: Run the contract and verify the red state**
 
@@ -54,7 +55,7 @@ node refs/redesign6/qa.mjs
 ```
 
 Expected: FAIL because the current prototype lacks the new `plates` structures
-and 896px compact canvas contract.
+and 700px compact canvas contract.
 
 - [ ] **Step 3: Keep the failing contract for subsequent tasks**
 
@@ -77,7 +78,7 @@ Implement:
 
 ```css
 .site {
-  width: min(calc(100% - 84px), 896px);
+  width: min(calc(100% - 56px), 700px);
   margin-inline: auto;
 }
 
@@ -100,9 +101,10 @@ ordinary groups.
 - [ ] **Step 2: Recompose the home page**
 
 Keep the existing wordmark text geometry and factual copy. Place the wordmark
-at nearly the full canvas width, with alias 14px below. Follow with a compact
-intro group and a two-column contact field using faint horizontal rules.
-Retain semantic `h1` and `dl` markup.
+at the full canvas width, with alias 14px below. Follow with a compact intro
+group and a label/value contact field introduced by one faint rule. Separate
+entries with rhythm rather than repeated rules. Retain semantic `h1` and `dl`
+markup.
 
 - [ ] **Step 3: Run the contract**
 
@@ -231,9 +233,9 @@ after every click and confirm one current-page marker.
 
 - [ ] **Step 2: Verify responsive layout**
 
-At 320, 375, 768, 1280, and 1600px, inspect all four pages for horizontal
-overflow. Visually review home at 1280 and 320, infra at 1280, dn42 at 375,
-and mirrors at 320.
+At 320, 375, 639, 640, 768, 1280, and 1600px, inspect all four pages for
+horizontal overflow. Visually review home at 1280 and 320, infra at 1280,
+dn42 at 375, and mirrors at 320.
 
 - [ ] **Step 3: Run mechanical design checks**
 

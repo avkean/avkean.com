@@ -46,8 +46,9 @@ outer composition rather than repeated between every section.
 
 ### Shared frame
 
-- Centered canvas with a maximum width of 896px.
-- 28px side clearance at phone widths and 42px at wider widths.
+- Centered canvas with a maximum width of 700px.
+- The canvas uses one continuous rule: 28px minimum side clearance, then a
+  centered 700px cap. It does not jump to a different gutter at a breakpoint.
 - Header is one compact row on desktop and two rows on narrow screens.
 - A single low-contrast rule anchors the header. No boxes surround the page.
 - Persistent navigation is `~ / infra / dn42 / mirrors`.
@@ -57,15 +58,17 @@ outer composition rather than repeated between every section.
 
 ### Home
 
-- The 5x7 self-similar `avner` wordmark spans most of the canvas width.
+- The 5x7 self-similar `avner` wordmark shares the exact canvas edges used by
+  the header, prose, rows, and footer.
 - The wordmark uses five closely related cool tones from steel blue through
   dusty plum.
 - The alias sits 14px below the mark.
 - Introductory prose sits immediately below as one readable group rather than
   being pushed to the far side of the viewport.
 - Contact details form one compact vertical field at every width.
-- Contact rows use alignment and a faint rule only. They are not colored
-  tiles.
+- One faint rule introduces the contact field. Individual entries are
+  separated by rhythm rather than repeated row rules, so the field does not
+  resemble a spreadsheet or terminal table.
 
 ### Infra
 
@@ -84,6 +87,8 @@ outer composition rather than repeated between every section.
 - The two nodes are stacked substantial plates at every size.
 - Full endpoints, WireGuard keys, link-local addresses, and network addresses
   remain visible and selectable.
+- Each node uses one header divider. Its internal fields rely on typographic
+  grouping rather than repeated rules.
 - Network metadata returns to the dark ground in one compact vertical field.
 - No topology drawing, port diagram, or unexplained network metaphor appears.
 
@@ -132,14 +137,17 @@ There is no ochre, amber, yellow, beige, or brown.
 
 ### Wide, 960px and above
 
-- Canvas remains capped so text and objects stay substantial.
-- Home wordmark is nearly canvas width.
+- Canvas remains capped at 700px so the composition has a natural reading
+  measure and does not become a thin band inside a wide frame.
+- Home wordmark spans the canvas and uses a corrected view box so its painted
+  bounds align with the content frame.
 - Prose, service, contact, node, and network fields remain one column.
 - Machine plates use three columns.
 
 ### Intermediate, 640px to 959px
 
-- The same canvas remains centered with 42px side clearance.
+- The same canvas keeps its 28px minimum side clearance and grows continuously
+  until it reaches the 700px cap.
 - Machine plates remain three columns while their internal copy simplifies
   naturally.
 - Every other content group remains a single reading column.
@@ -176,7 +184,7 @@ There is no ochre, amber, yellow, beige, or brown.
   triptych may use parallel columns.
 - Colored plates are limited to meaningful technical groups.
 - There is no warm yellow-brown cast.
-- No horizontal overflow occurs at 320, 375, 768, 1280, or 1600px.
+- No horizontal overflow occurs at 320, 375, 639, 640, 768, 1280, or 1600px.
 - Long dn42 keys and mirror addresses remain readable and selectable.
 - Each HTML file plus its shared CSS remains 25KB or less,
   excluding cached font files.
