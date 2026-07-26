@@ -69,20 +69,22 @@ viewport-unit values.
 - The wordmark uses five closely related cool tones from steel blue through
   dusty plum.
 - The alias sits 14px below the mark.
-- The first paragraph becomes a borderless typographic portrait on the dark
-  ground. Its factual wording stays unchanged.
-- Only `software`, `security`, `systems`, `networks`, and `properly.` carry
-  the five wordmark tones. Connective prose remains near-white, so color is
-  distributed through meaning rather than through filled bands.
-- On desktop, line breaks and the right-edge `properly.` beat use the full
-  canvas. On phones, type and wrapping become quieter so the wordmark remains
-  the first identity object.
-- The portrait has no background fill, stripe, card, border, icon, diagram,
-  gradient, or extra copy.
-- Contact details form one compact vertical field at every width.
-- One faint rule introduces the contact field. Individual entries are
-  separated by rhythm rather than repeated row rules, so the field does not
-  resemble a spreadsheet or terminal table.
+- Both introductory paragraphs remain ordinary 19px/28px serif prose on the
+  dark ground. They use no ornamental emphasis, colored nouns, split columns,
+  filled bands, or extra copy.
+- Contact is the page's secondary visual moment: one near-black calling card
+  with the shared two-corner cut, never a grid of smaller cards.
+- Contact methods are stacked in one reading column. Each label sits directly
+  above its destination, with no desktop label/value rails and no repeated row
+  rules.
+- The four destinations move through a restrained cool sequence from steel
+  blue to dusty plum. Persistent underlines keep link meaning independent of
+  color.
+- One oversized, extremely faint `@` is cropped into the lower-right corner as
+  a recognizable contact seal. It is decorative, non-interactive, and remains
+  behind the information.
+- At 320px the fingerprint uses a compact 14px/28px mono treatment and two
+  lines, preventing it from dominating the card.
 
 ### Infra
 
@@ -125,16 +127,16 @@ viewport-unit values.
 
 The preview uses two families and four CSS text sizes:
 
-- system serif, 42px/56px, the desktop closing statement beat
 - system serif, 32px/42px, page titles
 - system serif, 19px/28px, prose and important plate copy
 - Commit Mono, 16px/28px, navigation, labels, values, and footer
+- Commit Mono, 14px/28px, only the PGP fingerprint at the narrowest breakpoint
 
 The SVG wordmark geometry remains responsive within its view box rather than
 introducing another CSS text size.
 
 Weights are limited to regular and bold. Labels are muted through color rather
-than reduced to tiny text. No body text is smaller than 16px.
+than reduced to tiny text. Ordinary body text is never smaller than 16px.
 
 ## Color
 
@@ -169,6 +171,8 @@ There is no ochre, amber, yellow, beige, or brown.
 - Home wordmark spans the canvas and uses a corrected view box so its painted
   bounds align with the content frame.
 - Prose, service, contact, node, and network fields remain one column.
+- The contact calling card uses the full editorial measure, with its faint seal
+  balancing the stacked destinations rather than creating another column.
 - Machine plates use three columns.
 
 ### Intermediate, 640px to 959px
@@ -207,8 +211,9 @@ There is no ochre, amber, yellow, beige, or brown.
 
 - Four pages are reachable through the persistent navigation.
 - The home wordmark is the immediate visual focus.
-- The home portrait introduces restrained color without a filled stripe or
-  flag-like field.
+- Home prose remains plain and uncluttered.
+- The contact calling card introduces restrained color and one recognizable
+  visual seal without becoming a table, terminal, stripe, or card grid.
 - Body copy is visibly larger and content groups are materially denser than
   round 6.
 - Prose and data use one continuous reading column; only the compact machine

@@ -74,7 +74,7 @@ tasks make this contract pass.
 
 **Interfaces:**
 - Consumes: existing font files under `refs/redesign6/assets/fonts`
-- Produces: shared tokens, header, navigation, footer, wordmark, prose, and contact-field styles used by every page
+- Produces: shared tokens, header, navigation, footer, wordmark, prose, and calling-card styles used by every page
 
 - [ ] **Step 1: Replace the shared CSS foundation**
 
@@ -106,12 +106,19 @@ viewport class without introducing off-grid spacing.
 - [ ] **Step 2: Recompose the home page**
 
 Keep the existing wordmark text geometry and factual copy. Place the wordmark
-at the full canvas width, with alias 14px below. Turn the first paragraph into
-one borderless typographic portrait on the dark ground: color only the four
-work nouns and `properly.` with the five wordmark tones. Do not add filled
-bands, cards, stripes, diagrams, icons, gradients, or new copy. Keep the
-supporting paragraph and label/value contact field below with the established
-major rhythm. Retain semantic `h1`, `p`, and `dl` markup.
+at the full canvas width, with alias 14px below. Keep both introductory
+paragraphs as ordinary 19px/28px serif prose on the dark ground, with no
+colored nouns, split columns, filled bands, diagrams, icons, gradients, or new
+copy.
+
+Turn contact into one near-black, two-corner calling card below the prose.
+Stack each mono label directly above its destination, with no label/value
+columns or repeated row rules. Color the four underlined destinations with a
+restrained steel-to-plum sequence, and crop one extremely faint decorative
+`@` into the lower-right corner. Preserve 44px link targets and keep the seal
+non-interactive and hidden from assistive technology. At 320px, compact the
+fingerprint to two 14px/28px lines. Retain semantic `h1`, `p`, `section`, and
+`dl` markup.
 
 - [ ] **Step 3: Run the contract**
 
@@ -264,7 +271,8 @@ CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-home-experience.mjs
 ```
 
 Expected: no unexplained detector findings and all structural, spacing,
-navigation, network-field, I2P, palette, and contrast assertions pass.
+navigation, calling-card, narrow-fingerprint, network-field, I2P, palette,
+and contrast assertions pass.
 
 - [ ] **Step 4: Leave the preview open**
 
