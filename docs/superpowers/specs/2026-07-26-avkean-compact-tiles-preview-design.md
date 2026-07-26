@@ -72,19 +72,20 @@ viewport-unit values.
 - Both introductory paragraphs remain ordinary 19px/28px serif prose on the
   dark ground. They use no ornamental emphasis, colored nouns, split columns,
   filled bands, or extra copy.
-- Contact is the page's secondary visual moment: one near-black calling card
-  with the shared two-corner cut, never a grid of smaller cards.
-- Contact methods are stacked in one reading column. Each label sits directly
-  above its destination, with no desktop label/value rails and no repeated row
-  rules.
-- The four destinations move through a restrained cool sequence from steel
-  blue to dusty plum. Persistent underlines keep link meaning independent of
-  color.
-- One oversized, extremely faint `@` is cropped into the lower-right corner as
-  a recognizable contact seal. It is decorative, non-interactive, and remains
-  behind the information.
-- At 320px the fingerprint uses a compact 14px/28px mono treatment and two
-  lines, preventing it from dominating the card.
+- Contact is a compact conversational coda on the page ground, not a separate
+  card, definition table, or link grid.
+- Mail, Signal, and Matrix form one ordinary 19px/28px serif sentence. On
+  desktop it resolves into two deliberate clauses; on phones it wraps
+  naturally as one reading flow.
+- The three short channel names move through a restrained cool sequence from
+  steel blue to dusty plum. Variable-length handles share one quiet text color,
+  and persistent underlines keep link meaning independent of color.
+- The PGP fingerprint follows as one quiet 14px/28px mono endnote. It stays on
+  one line at desktop and wraps at its existing groups into two lines on narrow
+  phones.
+- Contact adds no icon, seal, surface fill, clipped corner, row rule, or
+  decorative object. Its character comes from language, type, and precise
+  color rather than another container.
 
 ### Infra
 
@@ -130,7 +131,7 @@ The preview uses two families and four CSS text sizes:
 - system serif, 32px/42px, page titles
 - system serif, 19px/28px, prose and important plate copy
 - Commit Mono, 16px/28px, navigation, labels, values, and footer
-- Commit Mono, 14px/28px, only the PGP fingerprint at the narrowest breakpoint
+- Commit Mono, 14px/28px, the compact PGP endnote and narrow-phone footer
 
 The SVG wordmark geometry remains responsive within its view box rather than
 introducing another CSS text size.
@@ -171,8 +172,8 @@ There is no ochre, amber, yellow, beige, or brown.
 - Home wordmark spans the canvas and uses a corrected view box so its painted
   bounds align with the content frame.
 - Prose, service, contact, node, and network fields remain one column.
-- The contact calling card uses the full editorial measure, with its faint seal
-  balancing the stacked destinations rather than creating another column.
+- Contact remains a short editorial coda with two balanced conversational
+  clauses and one technical endnote.
 - Machine plates use three columns.
 
 ### Intermediate, 640px to 959px
@@ -212,8 +213,8 @@ There is no ochre, amber, yellow, beige, or brown.
 - Four pages are reachable through the persistent navigation.
 - The home wordmark is the immediate visual focus.
 - Home prose remains plain and uncluttered.
-- The contact calling card introduces restrained color and one recognizable
-  visual seal without becoming a table, terminal, stripe, or card grid.
+- The contact coda introduces restrained color without becoming a table,
+  terminal, stripe, card, or link grid.
 - Body copy is visibly larger and content groups are materially denser than
   round 6.
 - Prose and data use one continuous reading column; only the compact machine

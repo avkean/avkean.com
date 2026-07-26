@@ -74,7 +74,7 @@ tasks make this contract pass.
 
 **Interfaces:**
 - Consumes: existing font files under `refs/redesign6/assets/fonts`
-- Produces: shared tokens, header, navigation, footer, wordmark, prose, and calling-card styles used by every page
+- Produces: shared tokens, header, navigation, footer, wordmark, prose, and contact-coda styles used by every page
 
 - [ ] **Step 1: Replace the shared CSS foundation**
 
@@ -111,14 +111,18 @@ paragraphs as ordinary 19px/28px serif prose on the dark ground, with no
 colored nouns, split columns, filled bands, diagrams, icons, gradients, or new
 copy.
 
-Turn contact into one near-black, two-corner calling card below the prose.
-Stack each mono label directly above its destination, with no label/value
-columns or repeated row rules. Color the four underlined destinations with a
-restrained steel-to-plum sequence, and crop one extremely faint decorative
-`@` into the lower-right corner. Preserve 44px link targets and keep the seal
-non-interactive and hidden from assistive technology. At 320px, compact the
-fingerprint to two 14px/28px lines. Retain semantic `h1`, `p`, `section`, and
-`dl` markup.
+Turn contact into a compact conversational coda on the page ground. Remove the
+surface, clipped corners, seal, and definition-list structure. Present mail,
+Signal, and Matrix as one 19px/28px serif sentence. Color only the three short
+channel names in a steel-to-plum progression; keep the variable-length handles
+one quiet text color. Use two deliberate clauses at 640px and above, then let
+the sentence wrap naturally on phones. Follow it with one 14px/28px mono PGP
+endnote that wraps only at the fingerprint's existing spaces.
+Preserve underlines and visible unclipped focus rings. Inline prose links keep
+natural, non-overlapping text targets; the standalone PGP link retains a 44px
+minimum target. At 359px and below, use the established 14px mono size for the
+footer so its final link does not become an orphaned line. Retain semantic
+`h1`, `p`, and `section` markup.
 
 - [ ] **Step 3: Run the contract**
 
@@ -271,7 +275,7 @@ CODEX_NODE_MODULES=… QA_CHROME=… node refs/redesign6/qa-home-experience.mjs
 ```
 
 Expected: no unexplained detector findings and all structural, spacing,
-navigation, calling-card, narrow-fingerprint, network-field, I2P, palette,
+navigation, contact-coda, narrow-fingerprint, network-field, I2P, palette,
 and contrast assertions pass.
 
 - [ ] **Step 4: Leave the preview open**
