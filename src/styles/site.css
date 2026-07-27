@@ -186,36 +186,42 @@ main[tabindex="-1"]:focus {
   color: var(--muted);
 }
 
-.mark {
-  line-height: 0;
+.wordmark {
+  display: grid;
+  grid-template-columns: repeat(5, 5ch);
+  justify-content: space-between;
+  width: 100%;
+  padding-block: 0.15em;
+  font: 700 clamp(13.2px, calc(5vw - 2.8px), 35px) / 0.85 var(--mono);
+  font-variant-ligatures: none;
+  letter-spacing: 0;
 }
 
-.wordmark {
-  display: block;
-  width: 100%;
-  height: auto;
-  font-family: var(--mono);
-  text-rendering: geometricPrecision;
+.wordmark pre {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  white-space: pre;
 }
 
 .wm-a {
-  fill: var(--wm-a);
+  color: var(--wm-a);
 }
 
 .wm-v {
-  fill: var(--wm-v);
+  color: var(--wm-v);
 }
 
 .wm-n {
-  fill: var(--wm-n);
+  color: var(--wm-n);
 }
 
 .wm-e {
-  fill: var(--wm-e);
+  color: var(--wm-e);
 }
 
 .wm-r {
-  fill: var(--wm-r);
+  color: var(--wm-r);
 }
 
 .alias {

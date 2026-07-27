@@ -59,12 +59,14 @@ for (const page of pages) {
   assert.match(html, /<a\b[^>]*class="skip-link"[^>]*href="#main"/);
   assert.match(html, /<main\b[^>]*id="main"[^>]*tabindex="-1"/);
   assert.equal(count(html, /<script\b/gi), 0, `${page.file} must not ship scripts`);
+  assert.equal(count(html, /rel="modulepreload"/gi), 0, `${page.file} must not preload scripts`);
   assert.equal(count(html, /<style\b/gi), 0, `${page.file} must not ship style blocks`);
   assert.equal(count(html, /\sstyle="/gi), 0, `${page.file} must not ship inline styles`);
   assert.equal(count(html, /\son[a-z]+\s*=/gi), 0, `${page.file} must not ship event handlers`);
   assert.equal(count(html, /<!--/g), 0, `${page.file} must not contain comments`);
   assert.match(html, /http-equiv="Content-Security-Policy"/);
   assert.match(html, /default-src 'none'/);
+  assert.match(html, /script-src 'none'/);
   assert.doesNotMatch(html, /unsafe-inline|unsafe-eval/);
   assert.match(html, /name="referrer" content="no-referrer"/);
   assert.equal(count(html, /<link\b[^>]*rel="canonical"/g), page.noindex ? 0 : 1);
@@ -119,14 +121,27 @@ const infra = readFileSync(join(output, 'infra/index.html'), 'utf8');
 const dn42 = readFileSync(join(output, 'dn42/index.html'), 'utf8');
 const mirrors = readFileSync(join(output, 'mirrors/index.html'), 'utf8');
 
-assert.equal(count(home, /class="wordmark"/g), 1);
+const wordmark = home.match(/<div class="wordmark" aria-hidden="true">([\s\S]*?)<\/div>/)?.[0];
+assert.ok(wordmark);
+assert.doesNotMatch(wordmark, /<(?:svg|canvas)\b/);
+const wordmarkGlyphs = [
+  ...wordmark.matchAll(/<pre class="(wm-[avner])">([\s\S]*?)<\/pre>/g),
+].map(([, name, pattern]) => [name, pattern]);
+assert.deepEqual(wordmarkGlyphs, [
+  ['wm-a', ' aaa\na   a\na   a\naaaaa\na   a\na   a\na   a'],
+  ['wm-v', 'v   v\nv   v\nv   v\nv   v\nv   v\n v v\n  v'],
+  ['wm-n', 'n   n\nnn  n\nnn  n\nn n n\nn  nn\nn  nn\nn   n'],
+  ['wm-e', 'eeeee\ne\ne\neeee\ne\ne\neeeee'],
+  ['wm-r', 'rrrr\nr   r\nr   r\nrrrr\nr r\nr  r\nr   r'],
+]);
+assert.match(home, /<h1 class="sr-only">avner<\/h1><div class="wordmark"/);
 assert.equal(count(infra, /class="plate server /g), 3);
 assert.equal(count(dn42, /class="plate node /g), 2);
 assert.equal(count(mirrors, /class="plate address /g), 4);
 
 const outputFiles = files(output);
 assert.equal(
-  outputFiles.some((file) => /\.(?:js|mjs)$/.test(file)),
+  outputFiles.some((file) => /\.(?:js|mjs|cjs)$/.test(file)),
   false,
   'dist must not contain JavaScript',
 );
@@ -205,6 +220,7 @@ const dockerignore = readFileSync(join(root, '.dockerignore'), 'utf8');
 const torDockerignore = readFileSync(join(root, 'tor/.dockerignore'), 'utf8');
 const caddy = readFileSync(join(root, 'Caddyfile.site'), 'utf8');
 const favicon = readFileSync(join(root, 'public/favicon.svg'), 'utf8');
+const siteCss = readFileSync(join(root, 'src/styles/site.css'), 'utf8');
 
 assert.equal(count(dockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 2);
 assert.equal(count(torDockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 1);
@@ -224,8 +240,12 @@ assert.match(caddy, /@tls_proxy header X-Forwarded-Proto https/);
 assert.match(caddy, /Strict-Transport-Security "max-age=31536000"/);
 assert.match(caddy, /@immutable path \/_astro\/\*/);
 assert.match(caddy, /@mutable not path \/_astro\/\*/);
+assert.match(caddy, /script-src 'none'/);
 assert.match(favicon, /viewBox="0 0 16 16"/);
 assert.match(favicon, /shape-rendering="crispEdges"/);
 assert.doesNotMatch(favicon, /<text\b/);
+assert.match(siteCss, /grid-template-columns: repeat\(5, 5ch\)/);
+assert.match(siteCss, /font-variant-ligatures: none/);
+assert.match(siteCss, /--mono: "Commit Mono", ui-monospace, Menlo, Consolas, monospace/);
 
 console.log('production site checks passed');

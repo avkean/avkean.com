@@ -16,7 +16,7 @@ const {
 const route = Astro.url.pathname.replace(/\/$/, '') || '/';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const csp =
-  "default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'";
+  "default-src 'none'; script-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'";
 const navigation = [
   { label: 'home', href: '/', route: '/' },
   { label: 'infra', href: '/infra/', route: '/infra' },
