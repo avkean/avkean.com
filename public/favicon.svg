@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#080a0e"/>
-  <text x="16" y="22.5" font-family="ui-monospace, Menlo, monospace" font-size="18" font-weight="700" fill="#9cb7d7" text-anchor="middle">a</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <path
+    fill="#7397b3"
+    d="M5 1h6v2H5zM3 3h2v4H3zm8 0h2v4h-2zM3 7h10v2H3zM3 9h2v6H3zm8 0h2v6h-2z"
+  />
 </svg>

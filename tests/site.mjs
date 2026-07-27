@@ -35,6 +35,7 @@ for (const page of pages) {
   const stylesheets = links
     .filter((link) => attribute(link, 'rel') === 'stylesheet')
     .map((link) => attribute(link, 'href'));
+  const icons = links.filter((link) => attribute(link, 'rel') === 'icon');
   const nav = html.match(/<nav\b[^>]*class="site-nav"[^>]*>[\s\S]*?<\/nav>/)?.[0] ?? '';
 
   assert.equal(count(html, /<h1\b/g), 1, `${page.file} must have one h1`);
@@ -69,6 +70,9 @@ for (const page of pages) {
   assert.equal(count(html, /<link\b[^>]*rel="canonical"/g), page.noindex ? 0 : 1);
   assert.equal(count(html, /name="robots" content="noindex"/g), page.noindex ? 1 : 0);
   assert.ok(stylesheets.length > 0, `${page.file} must use external CSS`);
+  assert.equal(icons.length, 2, `${page.file} must include SVG and ICO favicons`);
+  assert.equal(attribute(icons[0], 'sizes'), '16x16 32x32');
+  assert.equal(attribute(icons[1], 'sizes'), 'any');
 
   const paragraphs = html.match(/<p\b[^>]*>[\s\S]*?<\/p>/g) ?? [];
   for (const paragraph of paragraphs) {
@@ -79,7 +83,7 @@ for (const page of pages) {
   let pageBytes = Buffer.byteLength(html);
   const loadedAssets = new Set([
     ...stylesheets,
-    ...(html.match(/<link\b[^>]*rel="icon"[^>]*href="([^"]+)"/)?.slice(1) ?? []),
+    ...icons.map((icon) => attribute(icon, 'href')),
     ...[...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map((match) => match[1]),
   ]);
   for (const href of loadedAssets) {
@@ -200,6 +204,7 @@ const compose = readFileSync(join(root, 'docker-compose.yml'), 'utf8');
 const dockerignore = readFileSync(join(root, '.dockerignore'), 'utf8');
 const torDockerignore = readFileSync(join(root, 'tor/.dockerignore'), 'utf8');
 const caddy = readFileSync(join(root, 'Caddyfile.site'), 'utf8');
+const favicon = readFileSync(join(root, 'public/favicon.svg'), 'utf8');
 
 assert.equal(count(dockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 2);
 assert.equal(count(torDockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 1);
@@ -219,5 +224,8 @@ assert.match(caddy, /@tls_proxy header X-Forwarded-Proto https/);
 assert.match(caddy, /Strict-Transport-Security "max-age=31536000"/);
 assert.match(caddy, /@immutable path \/_astro\/\*/);
 assert.match(caddy, /@mutable not path \/_astro\/\*/);
+assert.match(favicon, /viewBox="0 0 16 16"/);
+assert.match(favicon, /shape-rendering="crispEdges"/);
+assert.doesNotMatch(favicon, /<text\b/);
 
 console.log('production site checks passed');
