@@ -5,24 +5,40 @@ services:
       dockerfile: Dockerfile
     container_name: avkean-web
     restart: unless-stopped
+    read_only: true
+    user: "65534:65534"
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /config:rw,noexec,nosuid,nodev,mode=1777
+      - /data:rw,noexec,nosuid,nodev,mode=1777
     networks:
       - proxy_net
       - default
 
   i2pd:
-    image: purplei2p/i2pd:latest-release
+    image: purplei2p/i2pd:latest-release@sha256:422f6715f635d1af0a6ae4937447471477deb6e6719bf5935029be674e4f4cdd
     container_name: avkean-i2pd
     restart: unless-stopped
     depends_on:
       - web
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - ./i2p/i2pd.conf:/home/i2pd/data/i2pd.conf:ro
       - ./i2p/tunnels.conf:/home/i2pd/data/tunnels.conf:ro
-      # eepsite keypairs live on the server only, never in git
       - ./i2p/keys:/home/i2pd/data/keys:ro
       - i2pd_data:/home/i2pd/data
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev
     ports:
-      # NTCP2/SSU2 so the router is reachable, not firewalled
       - "24688:24688/tcp"
       - "24688:24688/udp"
     networks:
@@ -36,9 +52,21 @@ services:
     restart: unless-stopped
     depends_on:
       - web
+    read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_READ_SEARCH
+      - SETGID
+      - SETUID
+    security_opt:
+      - no-new-privileges:true
     volumes:
-      # hidden service keypair lives on the server only, never in git
       - ./tor/keys:/keys:ro
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev
+      - /var/lib/tor:rw,noexec,nosuid,nodev,mode=0700,uid=0,gid=0
     networks:
       - default
 

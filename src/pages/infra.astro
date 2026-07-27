@@ -1,52 +1,79 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Footer from '../components/Footer.astro';
 ---
 
 <Base
   title="infra · avner"
-  themeColor="#0e0e0e"
-  description="What I run myself. Forgejo, Matrix, a Tor relay, and two dn42 nodes."
+  description="What Avner runs: Forgejo, Matrix, Tor, dn42, and supporting infrastructure."
 >
-  <main>
-    <PageHeader title="infra" />
+  <header class="page-head">
+    <h1>infra</h1>
+    <p class="lede">A few public services and the servers behind them.</p>
+  </header>
 
-    <p>
-      These are some of the things that I run on my servers.
-    </p>
+  <section class="page-section">
+    <h2>services</h2>
+    <ul class="service-list">
+      <li>
+        <h3>Forgejo</h3>
+        <p>
+          <a href="https://git.avkean.com/" target="_blank" rel="noopener">git.avkean.com</a>,
+          where my code lives.
+        </p>
+      </li>
+      <li>
+        <h3>Matrix</h3>
+        <p>
+          My homeserver is <a
+            href="https://matrix.to/#/@avner:avkean.com"
+            target="_blank"
+            rel="noopener">@avner:avkean.com</a
+          >.
+        </p>
+      </li>
+      <li>
+        <h3>dn42</h3>
+        <p>AS4242420421, with two nodes and a <a href="/dn42/">peering page</a>.</p>
+      </li>
+      <li>
+        <h3>Tor</h3>
+        <p>
+          <a
+            href="https://metrics.torproject.org/rs.html#details/154DED50860DA2F14D91C36182024D37DD950CF8"
+            target="_blank"
+            rel="noopener">ratatoskr</a
+          > and this site’s <a href="/mirrors/">onion mirror</a>.
+        </p>
+      </li>
+      <li>
+        <h3>Status</h3>
+        <p>
+          Current service health at <a
+            href="https://status.avkean.com/"
+            target="_blank"
+            rel="noopener">status.avkean.com</a
+          >.
+        </p>
+      </li>
+    </ul>
+  </section>
 
-    <section>
-      <h2>What I run</h2>
-      <dl class="stack">
-        <div>
-          <dt>Forgejo</dt><dd><a href="https://git.avkean.com/" target="_blank" rel="noopener">git.avkean.com</a>, where my code lives</dd>
-        </div>
-        <div>
-          <dt>Matrix</dt><dd>the homeserver behind <a href="https://matrix.to/#/@avner:avkean.com" target="_blank" rel="noopener">@avner:avkean.com</a></dd>
-        </div>
-        <div>
-          <dt>dn42</dt><dd><code>AS4242420421</code>, my two nodes (<a href="/dn42/">peering page</a>)</dd>
-        </div>
-        <div>
-          <dt>Tor</dt><dd>a relay named <a href="https://metrics.torproject.org/rs.html#details/154DED50860DA2F14D91C36182024D37DD950CF8" target="_blank" rel="noopener">ratatoskr</a>, and this site&rsquo;s <a href="/mirrors/">onion mirror</a></dd>
-        </div>
-        <div>
-          <dt>Status</dt><dd><a href="https://status.avkean.com/" target="_blank" rel="noopener">status.avkean.com</a>, if you want to check</dd>
-        </div>
-      </dl>
-    </section>
-
-    <p class="note">
-      Everything else runs quietly.
-    </p>
-
-    <Footer />
-  </main>
+  <section class="page-section">
+    <h2>servers</h2>
+    <ul class="plates server-list" aria-label="Servers">
+      <li class="plate server fill-steel">
+        <h3>sg1</h3>
+        <p>Singapore</p>
+      </li>
+      <li class="plate server fill-violet">
+        <h3>us1</h3>
+        <p>Oregon</p>
+      </li>
+      <li class="plate server fill-plum">
+        <h3>ca1</h3>
+        <p>Montreal</p>
+      </li>
+    </ul>
+    <p class="closing">Everything else runs quietly.</p>
+  </section>
 </Base>
-
-<style>
-  .note {
-    margin-top: var(--s4);
-  }
-</style>

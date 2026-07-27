@@ -1,40 +1,77 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Footer from '../components/Footer.astro';
 ---
 
 <Base
   title="mirrors · avner"
-  themeColor="#0e0e0e"
-  description="This site is also on Tor, I2P, and dn42."
+  description="Clearnet, Tor, I2P, and dn42 addresses for avkean.com."
 >
-  <main>
-    <PageHeader title="mirrors" />
-
-    <p>
-      The same site, served over a few different networks. It all runs on
+  <header class="page-head">
+    <h1>mirrors</h1>
+    <p class="lede">
+      The same site, served over a few different networks. It all runs on{' '}
       <a href="/infra/">my infra</a>.
     </p>
+  </header>
 
-    <section>
-      <h2>Addresses</h2>
-      <dl>
-        <div>
-          <dt>Clearnet</dt><dd><a href="https://avkean.com/">avkean.com</a></dd>
-        </div>
-        <div>
-          <dt>Tor</dt><dd><a href="http://avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion" rel="me noopener" target="_blank">avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion</a></dd>
-        </div>
-        <div>
-          <dt>I2P</dt><dd><a href="http://avkeanm7ldgvhz36zij3ntphilipw2dc43j4rhqumzvmh7usanta.b32.i2p" rel="me noopener" target="_blank">avkeanm7ldgvhz36zij3ntphilipw2dc43j4rhqumzvmh7usanta.b32.i2p</a> &middot; <a href="http://avkean.i2p" rel="me noopener" target="_blank">avkean.i2p</a></dd>
-        </div>
-        <div>
-          <dt>dn42</dt><dd><a href="http://avkean.dn42" rel="me noopener" target="_blank">avkean.dn42</a></dd>
-        </div>
-      </dl>
-    </section>
-
-    <Footer />
-  </main>
+  <section class="page-section">
+    <h2>addresses</h2>
+    <dl class="plates addresses">
+      <div class="plate address fill-steel">
+        <dt>clearnet</dt>
+        <dd><a href="https://avkean.com/">avkean.com</a></dd>
+      </div>
+      <div class="plate address fill-violet">
+        <dt>tor</dt>
+        <dd>
+          <a
+            href="http://avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion/"
+            target="_blank"
+            rel="noopener"
+            ><code
+              >avkean56kkkrrjvqksx6rjli<wbr />dh3ws4ad6pzefs5mxqchw6p6<wbr
+              />34aaawad.onion</code
+            ></a
+          >
+        </dd>
+      </div>
+      <div class="plate address fill-plum">
+        <dt>i2p</dt>
+        <dd>
+          <dl class="i2p-options" aria-label="I2P addresses">
+            <div class="i2p-option">
+              <dt>name</dt>
+              <dd>
+                <a href="http://avkean.i2p/" target="_blank" rel="noopener"
+                  ><code>avkean.i2p</code></a
+                >
+              </dd>
+            </div>
+            <div class="i2p-option">
+              <dt>b32</dt>
+              <dd>
+                <a
+                  href="http://avkeanm7ldgvhz36zij3ntphilipw2dc43j4rhqumzvmh7usanta.b32.i2p/"
+                  target="_blank"
+                  rel="noopener"
+                  ><code
+                    >avkeanm7ldgvhz36zij3ntph<wbr />ilipw2dc43j4rhqumzvmh7us<wbr
+                    />anta.b32.i2p</code
+                  ></a
+                >
+              </dd>
+            </div>
+          </dl>
+        </dd>
+      </div>
+      <div class="plate address fill-steel">
+        <dt>dn42</dt>
+        <dd>
+          <a href="http://avkean.dn42/" target="_blank" rel="noopener"
+            ><code>avkean.dn42</code></a
+          >
+        </dd>
+      </div>
+    </dl>
+  </section>
 </Base>

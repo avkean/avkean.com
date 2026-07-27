@@ -4,20 +4,25 @@ import '../styles/site.css';
 
 interface Props {
   title?: string;
-  themeColor?: string;
   description?: string;
   noindex?: boolean;
 }
+
 const {
   title = 'avner',
-  themeColor = '#1a1a1a',
-  description = 'I build software and work on security, systems, and networks. I like understanding things properly.',
+  description = 'Avner builds software and works on security, systems, and networks.',
   noindex = false,
 } = Astro.props;
+const route = Astro.url.pathname.replace(/\/$/, '') || '/';
 const canonical = new URL(Astro.url.pathname, Astro.site);
-// no upgrade-insecure-requests: the onion mirror is http-only
 const csp =
   "default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'";
+const navigation = [
+  { label: 'home', href: '/', route: '/' },
+  { label: 'infra', href: '/infra/', route: '/infra' },
+  { label: 'dn42', href: '/dn42/', route: '/dn42' },
+  { label: 'mirrors', href: '/mirrors/', route: '/mirrors' },
+];
 ---
 
 <!doctype html>
@@ -27,15 +32,16 @@ const csp =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {import.meta.env.PROD && <meta http-equiv="Content-Security-Policy" content={csp} />}
     <meta name="referrer" content="no-referrer" />
-    <title>{title}</title>
+    <meta name="theme-color" content="#080a0e" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content={themeColor} />
+    <title>{title}</title>
     {
       noindex ? (
         <meta name="robots" content="noindex" />
       ) : (
         <>
           <link rel="canonical" href={canonical} />
+          <meta property="og:type" content="website" />
           <meta property="og:title" content={title} />
           <meta property="og:description" content={description} />
           <meta property="og:url" content={canonical} />
@@ -45,24 +51,37 @@ const csp =
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <slot />
+    <a class="skip-link" href="#main">skip to content</a>
+    <div class="site">
+      <header class="site-header">
+        <nav class="site-nav" aria-label="Primary">
+          {
+            navigation.map((item, index) => (
+              <a
+                class={index === 0 ? 'home-link' : undefined}
+                href={item.href}
+                aria-current={route === item.route ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <p>
+          <span>© avner</span>
+          <a
+            href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            target="_blank"
+            rel="noopener">CC BY-NC-ND 4.0</a
+          >
+          <a href="https://github.com/avkean/avkean.com" target="_blank" rel="noopener">source</a>
+        </p>
+      </footer>
+    </div>
   </body>
 </html>
-
-<style is:global>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  html,
-  body {
-    margin: 0;
-    min-height: 100%;
-  }
-  body {
-    font-kerning: normal;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-</style>

@@ -1,15 +1,13 @@
-/* Commit Mono, subset to ASCII + common punctuation */
 @font-face {
-  font-family: 'Commit Mono';
-  font-style: normal;
+  font-family: "Commit Mono";
+  src: url("../fonts/commit-mono-subset-500.woff2") format("woff2");
   font-weight: 500;
   font-display: swap;
-  src: url('../fonts/commit-mono-subset-500.woff2') format('woff2');
 }
+
 @font-face {
-  font-family: 'Commit Mono';
-  font-style: normal;
+  font-family: "Commit Mono";
+  src: url("../fonts/commit-mono-subset-700.woff2") format("woff2");
   font-weight: 700;
   font-display: swap;
-  src: url('../fonts/commit-mono-subset-700.woff2') format('woff2');
 }

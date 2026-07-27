@@ -1,105 +1,63 @@
 ---
+import Wordmark from '../components/Wordmark.astro';
 import Base from '../layouts/Base.astro';
-import Footer from '../components/Footer.astro';
-
-// each letter drawn from 5x7 cells of itself
-const glyphs: Record<string, string[]> = {
-  a: [' ### ', '#   #', '#   #', '#####', '#   #', '#   #', '#   #'],
-  v: ['#   #', '#   #', '#   #', '#   #', '#   #', ' # # ', '  #  '],
-  n: ['#   #', '##  #', '##  #', '# # #', '#  ##', '#  ##', '#   #'],
-  e: ['#####', '#    ', '#    ', '#### ', '#    ', '#    ', '#####'],
-  r: ['#### ', '#   #', '#   #', '#### ', '# #  ', '#  # ', '#   #'],
-};
-const word = 'avner';
-const wordmark = Array.from({ length: 7 }, (_, row) =>
-  word
-    .split('')
-    .map((ch) => glyphs[ch][row].replaceAll('#', ch))
-    .join('  ')
-).join('\n');
 ---
 
-<Base title="avner" themeColor="#0e0e0e">
-  <main>
-    <header>
-      <h1>
-        <span class="sr-only">avner</span>
-        <pre class="wordmark" aria-hidden="true">{wordmark}</pre>
-      </h1>
-      <p class="alias">(or avkean)</p>
-    </header>
+<Base>
+  <h1 class="mark">
+    <span class="sr-only">avner</span>
+    <Wordmark />
+  </h1>
 
+  <p class="alias">(or avkean)</p>
+
+  <div class="intro-grid">
     <p>
-      I build software and work on security, systems, and networks. I like
-      understanding things properly.
+      I build software and work on security, systems, and networks. I like understanding things
+      properly.
     </p>
-
     <p>
-      Most of what I make is on
-      <a href="https://github.com/avkean" target="_blank" rel="noopener">GitHub</a> or
+      Most of what I make is on{' '}
+      <a href="https://github.com/avkean" target="_blank" rel="noopener">GitHub</a>{' '}
+      or{' '}
       <a href="https://git.avkean.com/" target="_blank" rel="noopener">my own Forgejo</a>.
-      Everything else runs quietly on servers you&rsquo;ll never see.
+      Everything else runs quietly.
     </p>
+  </div>
 
-    <p class="go"><a href="/infra/">&rarr; my infra</a></p>
-
-    <section>
-      <h2>Contact</h2>
-      <dl>
-        <div>
-          <dt>Mail</dt><dd><a href="mailto:hi@avkean.com">hi@avkean.com</a></dd>
-        </div>
-        <div>
-          <dt>Signal</dt><dd><a href="https://signal.me/#eu/BUbfJCUO8mhpt72XtE95_lws5L9OeiW4T30yrcwtv3KJdsqXn8RGx5jVgxh94s-m" target="_blank" rel="noopener">@avner.21</a></dd>
-        </div>
-        <div>
-          <dt>Matrix</dt><dd><a href="https://matrix.to/#/@avner:avkean.com" target="_blank" rel="noopener">@avner:avkean.com</a></dd>
-        </div>
-        <div>
-          <dt>PGP</dt><dd><a href="/pgp.asc" class="fp">91B9 4137 9029 3533 4C18&nbsp; C2C6 3CBC 2478 EB01 0AA7</a></dd>
-        </div>
-      </dl>
-    </section>
-
-    <Footer />
-  </main>
+  <section class="contact">
+    <h2>contact</h2>
+    <dl class="contact-field">
+      <div>
+        <dt>Mail:</dt>
+        <dd><a href="mailto:hi@avkean.com">hi@avkean.com</a></dd>
+      </div>
+      <div>
+        <dt>Signal:</dt>
+        <dd>
+          <a
+            href="https://signal.me/#eu/BUbfJCUO8mhpt72XtE95_lws5L9OeiW4T30yrcwtv3KJdsqXn8RGx5jVgxh94s-m"
+            target="_blank"
+            rel="noopener">@avner.21</a
+          >
+        </dd>
+      </div>
+      <div>
+        <dt>Matrix:</dt>
+        <dd>
+          <a href="https://matrix.to/#/@avner:avkean.com" target="_blank" rel="noopener"
+            >@avner:avkean.com</a
+          >
+        </dd>
+      </div>
+      <div>
+        <dt>PGP:</dt>
+        <dd>
+          <a class="fingerprint" href="/pgp.asc" target="_blank" rel="noopener"
+            >91B9 4137 9029 3533 4C18 C2C6 3CBC 2478 EB01 0AA7</a
+          >
+        </dd>
+      </div>
+    </dl>
+  </section>
 </Base>
-
-<style>
-  .wordmark {
-    margin: 0;
-    font-family: inherit;
-    font-weight: 700;
-    color: var(--red);
-    /* 33 cells x ~0.65em must fit the measure */
-    font-size: min(calc((100vw - 3rem) / 21.5), 1.7rem);
-    line-height: 0.85;
-    white-space: pre;
-  }
-
-  .alias {
-    color: var(--muted);
-    margin-top: var(--s1);
-  }
-
-  header {
-    border-bottom: 1px dashed var(--rule);
-    padding-bottom: var(--s2);
-    margin-bottom: var(--s4);
-  }
-
-  main > p {
-    max-width: 56ch;
-  }
-  header + p {
-    margin-bottom: var(--s2);
-  }
-  .go {
-    margin-top: var(--s2);
-  }
-
-  .fp {
-    color: var(--muted);
-    text-decoration-color: currentColor;
-  }
-</style>

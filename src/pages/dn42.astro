@@ -1,103 +1,120 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Footer from '../components/Footer.astro';
 ---
 
 <Base
   title="dn42 · avner"
-  themeColor="#0e0e0e"
-  description="How to peer with AS4242420421, plus endpoints and a looking glass."
+  description="Peering information, endpoints, and network details for AS4242420421."
 >
-  <main>
-    <PageHeader title="dn42" />
+  <header class="page-head">
+    <h1>dn42</h1>
+    <p class="lede">
+      <a href="https://dn42.dev/" target="_blank" rel="noopener">dn42</a>{' '}
+      is an overlay network where hobbyists run real BGP between themselves. This is my peering
+      page.
+    </p>
+  </header>
 
+  <section class="page-section">
+    <h2>peering</h2>
     <p>
-      <a href="https://dn42.dev/" target="_blank" rel="noopener">dn42</a> is an
-      overlay network where hobbyists run real BGP between themselves. This is
-      my peering page. The nodes are part of <a href="/infra/">my infra</a>.
+      Peering is open. <a href="mailto:infra@avkean.com">Email me</a>{' '}
+      your ASN, endpoint, WireGuard key, and link-local. Use whichever node is closer.
+    </p>
+    <p>
+      Sessions are MP-BGP over IPv6 link-local with extended next hop, dn42 routes only. Current
+      peers are on the{' '}
+      <a href="https://lg.avkean.com/" target="_blank" rel="noopener">looking glass</a>.
+    </p>
+  </section>
+
+  <section class="page-section">
+    <h2>nodes</h2>
+    <p class="node-note">
+      Both listen on port <code class="port">2<var>XXXX</var></code>. XXXX is the last four digits of
+      your ASN.
     </p>
 
-    <section>
-      <h2>Peering</h2>
-      <p>
-        Peering is open, just <a href="mailto:infra@avkean.com">email me</a>
-        your ASN, endpoint, WireGuard key, and link-local. Use whichever node
-        is closer.
-      </p>
-      <p>
-        Sessions are MP-BGP over IPv6 link-local with extended next hop, dn42
-        routes only.
-      </p>
-      <p>
-        Current peers are on the
-        <a href="https://lg.avkean.com/" target="_blank" rel="noopener">looking glass</a>.
-      </p>
-    </section>
+    <ul class="plates nodes" aria-label="dn42 nodes">
+      <li class="plate node fill-steel">
+        <h3>sg <span>Singapore</span></h3>
+        <dl class="node-fields">
+          <div>
+            <dt>endpoint</dt>
+            <dd>
+              <code>sg.dn42.avkean.com:<span class="port">2<var>XXXX</var></span></code>
+            </dd>
+          </div>
+          <div>
+            <dt>wireguard</dt>
+            <dd><code>avkeanHyNlKN+YU4zxnrQTTIEyaE+djuZABwxfaj0T0=</code></dd>
+          </div>
+          <div>
+            <dt>link-local</dt>
+            <dd><code>fe80::421</code></dd>
+          </div>
+          <div>
+            <dt>addresses</dt>
+            <dd><code>172.20.242.21</code><br /><code>fd42:4242:421::1</code></dd>
+          </div>
+        </dl>
+      </li>
 
-    <section>
-      <h2>Nodes</h2>
-      <p class="note">
-        Both nodes listen on port <code>2<var>XXXX</var></code>, where XXXX is
-        the last four digits of your ASN.
-      </p>
+      <li class="plate node fill-violet">
+        <h3>us <span>Oregon</span></h3>
+        <dl class="node-fields">
+          <div>
+            <dt>endpoint</dt>
+            <dd>
+              <code>us.dn42.avkean.com:<span class="port">2<var>XXXX</var></span></code>
+            </dd>
+          </div>
+          <div>
+            <dt>wireguard</dt>
+            <dd><code>avkeanGRr7VyffvrWYaMImhSk7Bmb1i1UTipfDD1JDY=</code></dd>
+          </div>
+          <div>
+            <dt>link-local</dt>
+            <dd><code>fe80::422</code></dd>
+          </div>
+          <div>
+            <dt>addresses</dt>
+            <dd><code>172.20.242.22</code><br /><code>fd42:4242:421::2</code></dd>
+          </div>
+        </dl>
+      </li>
+    </ul>
+  </section>
 
-      <h3>sg (Singapore)</h3>
-      <dl>
-        <div><dt>Endpoint</dt><dd><code>sg.dn42.avkean.com:2<var>XXXX</var></code></dd></div>
-        <div><dt>WireGuard</dt><dd><code>avkeanHyNlKN+YU4zxnrQTTIEyaE+djuZABwxfaj0T0=</code></dd></div>
-        <div><dt>Link-local</dt><dd><code>fe80::421</code></dd></div>
-        <div><dt>Router</dt><dd><code>172.20.242.21</code> &middot;&nbsp;<code>fd42:4242:421::1</code></dd></div>
-      </dl>
-
-      <h3>us (Oregon)</h3>
-      <dl>
-        <div><dt>Endpoint</dt><dd><code>us.dn42.avkean.com:2<var>XXXX</var></code></dd></div>
-        <div><dt>WireGuard</dt><dd><code>avkeanGRr7VyffvrWYaMImhSk7Bmb1i1UTipfDD1JDY=</code></dd></div>
-        <div><dt>Link-local</dt><dd><code>fe80::422</code></dd></div>
-        <div><dt>Router</dt><dd><code>172.20.242.22</code> &middot;&nbsp;<code>fd42:4242:421::2</code></dd></div>
-      </dl>
-    </section>
-
-    <section>
-      <h2>Network</h2>
-      <dl>
-        <div><dt>ASN</dt><dd><code>AS4242420421</code></dd></div>
-        <div><dt>IPv4</dt><dd><code>172.20.242.0/27</code></dd></div>
-        <div><dt>IPv6</dt><dd><code>fd42:4242:421::/48</code></dd></div>
-        <div><dt>Registry</dt><dd><code>AVKEAN-MNT</code> / <code>AVKEAN-DN42</code></dd></div>
-        <div><dt>Contact</dt><dd><a href="mailto:infra@avkean.com">infra@avkean.com</a></dd></div>
-        <div><dt>Looking glass</dt><dd><a href="https://lg.avkean.com/" target="_blank" rel="noopener">lg.avkean.com</a></dd></div>
-        <div><dt>Mirrors</dt><dd><a href="/mirrors/">avkean.dn42 and others</a></dd></div>
-      </dl>
-    </section>
-
-    <Footer />
-  </main>
+  <section class="page-section">
+    <h2>network</h2>
+    <dl class="network-grid">
+      <div>
+        <dt>asn</dt>
+        <dd><code>AS4242420421</code></dd>
+      </div>
+      <div>
+        <dt>ipv4</dt>
+        <dd><code>172.20.242.0/27</code></dd>
+      </div>
+      <div>
+        <dt>ipv6</dt>
+        <dd><code>fd42:4242:421::/48</code></dd>
+      </div>
+      <div>
+        <dt>registry</dt>
+        <dd><code>AVKEAN-MNT</code><br /><code>AVKEAN-DN42</code></dd>
+      </div>
+      <div>
+        <dt>contact</dt>
+        <dd><a href="mailto:infra@avkean.com">infra@avkean.com</a></dd>
+      </div>
+      <div>
+        <dt>looking glass</dt>
+        <dd>
+          <a href="https://lg.avkean.com/" target="_blank" rel="noopener">lg.avkean.com</a>
+        </dd>
+      </div>
+    </dl>
+  </section>
 </Base>
-
-<style>
-  h3 {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    color: var(--rose);
-    margin-top: var(--s3);
-  }
-  h3 + dl {
-    margin-top: var(--s0);
-    padding-left: 2ch;
-    border-left: 1px dashed var(--rule);
-  }
-
-  /* below this the key no longer fits beside its label; stack them */
-  @media (max-width: 36rem) {
-    h3 + dl > div {
-      grid-template-columns: 1fr;
-    }
-  }
-  @media (max-width: 26rem) {
-    h2 + dl > div {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

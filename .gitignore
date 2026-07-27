@@ -2,21 +2,5 @@ node_modules/
 dist/
 .astro/
 .DS_Store
-
-# hidden service keypair, server-side only
 tor/keys/
-
-# eepsite keypair, server-side only
 i2p/keys/
-
-# local context, not for the repo
-PRODUCT.md
-refs/
-src/sketches/
-.agents/
-.claude/
-.codex/
-.cursor/
-.gemini/
-.impeccable/
-.kiro/
