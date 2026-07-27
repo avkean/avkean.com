@@ -247,5 +247,7 @@ assert.doesNotMatch(favicon, /<text\b/);
 assert.match(siteCss, /grid-template-columns: repeat\(5, 5ch\)/);
 assert.match(siteCss, /font-variant-ligatures: none/);
 assert.match(siteCss, /--mono: "Commit Mono", ui-monospace, Menlo, Consolas, monospace/);
+const wordmarkPreRule = siteCss.match(/\.wordmark pre\s*\{[^}]*\}/)?.[0] ?? '';
+assert.doesNotMatch(wordmarkPreRule, /\bcolor\s*:/);
 
 console.log('production site checks passed');
