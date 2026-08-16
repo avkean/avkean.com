@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +15,7 @@ const pages = [
 ];
 
 const count = (value, pattern) => value.match(pattern)?.length ?? 0;
+const sha256 = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
 const files = (directory) =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -36,6 +38,8 @@ for (const page of pages) {
     .filter((link) => attribute(link, 'rel') === 'stylesheet')
     .map((link) => attribute(link, 'href'));
   const icons = links.filter((link) => attribute(link, 'rel') === 'icon');
+  const shortcutIcons = links.filter((link) => attribute(link, 'rel') === 'shortcut icon');
+  const touchIcons = links.filter((link) => attribute(link, 'rel') === 'apple-touch-icon');
   const nav = html.match(/<nav\b[^>]*class="site-nav"[^>]*>[\s\S]*?<\/nav>/)?.[0] ?? '';
 
   assert.equal(count(html, /<h1\b/g), 1, `${page.file} must have one h1`);
@@ -72,9 +76,16 @@ for (const page of pages) {
   assert.equal(count(html, /<link\b[^>]*rel="canonical"/g), page.noindex ? 0 : 1);
   assert.equal(count(html, /name="robots" content="noindex"/g), page.noindex ? 1 : 0);
   assert.ok(stylesheets.length > 0, `${page.file} must use external CSS`);
-  assert.equal(icons.length, 2, `${page.file} must include SVG and ICO favicons`);
-  assert.equal(attribute(icons[0], 'sizes'), '16x16 32x32');
-  assert.equal(attribute(icons[1], 'sizes'), 'any');
+  assert.equal(icons.length, 2, `${page.file} must include 16px and 32px PNG favicons`);
+  assert.equal(attribute(icons[0], 'href'), '/favicon-32x32.png');
+  assert.equal(attribute(icons[0], 'sizes'), '32x32');
+  assert.equal(attribute(icons[1], 'href'), '/favicon-16x16.png');
+  assert.equal(attribute(icons[1], 'sizes'), '16x16');
+  assert.equal(shortcutIcons.length, 1, `${page.file} must include an ICO fallback`);
+  assert.equal(attribute(shortcutIcons[0], 'href'), '/favicon.ico');
+  assert.equal(touchIcons.length, 1, `${page.file} must include an Apple touch icon`);
+  assert.equal(attribute(touchIcons[0], 'href'), '/apple-touch-icon.png');
+  assert.equal(attribute(touchIcons[0], 'sizes'), '180x180');
 
   const paragraphs = html.match(/<p\b[^>]*>[\s\S]*?<\/p>/g) ?? [];
   for (const paragraph of paragraphs) {
@@ -86,6 +97,8 @@ for (const page of pages) {
   const loadedAssets = new Set([
     ...stylesheets,
     ...icons.map((icon) => attribute(icon, 'href')),
+    ...shortcutIcons.map((icon) => attribute(icon, 'href')),
+    ...touchIcons.map((icon) => attribute(icon, 'href')),
     ...[...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map((match) => match[1]),
   ]);
   for (const href of loadedAssets) {
@@ -121,7 +134,9 @@ const infra = readFileSync(join(output, 'infra/index.html'), 'utf8');
 const dn42 = readFileSync(join(output, 'dn42/index.html'), 'utf8');
 const mirrors = readFileSync(join(output, 'mirrors/index.html'), 'utf8');
 
-const wordmark = home.match(/<div class="wordmark" aria-hidden="true">([\s\S]*?)<\/div>/)?.[0];
+const wordmark = home.match(
+  /<div class="wordmark" aria-hidden="true" data-nosnippet>([\s\S]*?)<\/div>/,
+)?.[0];
 assert.ok(wordmark);
 assert.doesNotMatch(wordmark, /<(?:svg|canvas)\b/);
 const wordmarkGlyphs = [
@@ -135,6 +150,12 @@ assert.deepEqual(wordmarkGlyphs, [
   ['wm-r', 'rrrr\nr   r\nr   r\nrrrr\nr r\nr  r\nr   r'],
 ]);
 assert.match(home, /<h1 class="sr-only">avner<\/h1><div class="wordmark"/);
+assert.match(
+  home,
+  /<meta name="description" content="I build software and work on security, systems, and networks\. I like understanding things properly\.">/,
+);
+assert.match(home, /<p class="alias"><span data-nosnippet>\(or avkean\)<\/span><\/p>/);
+assert.match(home, /<section class="contact" data-nosnippet>/);
 assert.equal(count(infra, /class="plate server /g), 3);
 assert.equal(count(dn42, /class="plate node /g), 2);
 assert.equal(count(mirrors, /class="plate address /g), 4);
@@ -176,7 +197,6 @@ const commentFree = [
   'docker-compose.yml',
   'i2p/i2pd.conf',
   'i2p/tunnels.conf',
-  'public/favicon.svg',
   'public/robots.txt',
   'src/layouts/Base.astro',
   'src/components/Wordmark.astro',
@@ -219,7 +239,6 @@ const compose = readFileSync(join(root, 'docker-compose.yml'), 'utf8');
 const dockerignore = readFileSync(join(root, '.dockerignore'), 'utf8');
 const torDockerignore = readFileSync(join(root, 'tor/.dockerignore'), 'utf8');
 const caddy = readFileSync(join(root, 'Caddyfile.site'), 'utf8');
-const favicon = readFileSync(join(root, 'public/favicon.svg'), 'utf8');
 const siteCss = readFileSync(join(root, 'src/styles/site.css'), 'utf8');
 
 assert.equal(count(dockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 2);
@@ -241,9 +260,13 @@ assert.match(caddy, /Strict-Transport-Security "max-age=31536000"/);
 assert.match(caddy, /@immutable path \/_astro\/\*/);
 assert.match(caddy, /@mutable not path \/_astro\/\*/);
 assert.match(caddy, /script-src 'none'/);
-assert.match(favicon, /viewBox="0 0 16 16"/);
-assert.match(favicon, /shape-rendering="crispEdges"/);
-assert.doesNotMatch(favicon, /<text\b/);
+const faviconHashes = new Map([
+  ['public/favicon.ico', '778a18e27cc1a4618669eda77a070980f25b63fbd465095df0d520090c47dea9'],
+  ['public/favicon-16x16.png', '7b6d42a2851b8b2165ee44f8fcfec1e711a32a1b08ed9d7353c639a4a0175548'],
+  ['public/favicon-32x32.png', '072cff08a17334a56179c85fbacc4da7a1ce78a4b1aa5ad8103ad9c6a33cb52f'],
+  ['public/apple-touch-icon.png', '9974ae6b9cc150e1f0b0ce613c016e401741350691b3118b45c24e034cffe13b'],
+]);
+for (const [file, hash] of faviconHashes) assert.equal(sha256(join(root, file)), hash);
 assert.match(siteCss, /grid-template-columns: repeat\(5, 5ch\)/);
 assert.match(siteCss, /font-variant-ligatures: none/);
 assert.match(siteCss, /--mono: "Commit Mono", ui-monospace, Menlo, Consolas, monospace/);
