@@ -156,7 +156,21 @@ assert.match(
 );
 assert.match(home, /<p class="alias"><span data-nosnippet>\(or avkean\)<\/span><\/p>/);
 assert.match(home, /<section class="contact" data-nosnippet>/);
-assert.equal(count(infra, /class="plate server /g), 3);
+const services = infra.match(/<ul class="service-list">([\s\S]*?)<\/ul>/)?.[0];
+assert.ok(services);
+assert.equal(count(services, /<li>/g), 6);
+assert.match(services, /<h3>SearXNG<\/h3>/);
+assert.match(services, /href="https:\/\/searxng\.avkean\.com\/"/);
+assert.match(
+  services,
+  /href="http:\/\/lyybdkn77b44vcqp7rc3fbcdgugzm7ygsce2mthjyztqhbjpdfqmt2qd\.onion"/,
+);
+assert.match(
+  infra,
+  /<meta name="description" content="What Avner runs: Forgejo, SearXNG, Matrix, Tor, dn42, and supporting infrastructure\.">/,
+);
+assert.equal(count(infra, /class="plate server /g), 2);
+assert.doesNotMatch(infra, /<h3>us1<\/h3>|<p>Oregon<\/p>/);
 assert.equal(count(dn42, /class="plate node /g), 2);
 assert.equal(count(mirrors, /class="plate address /g), 4);
 
@@ -241,6 +255,10 @@ const torDockerignore = readFileSync(join(root, 'tor/.dockerignore'), 'utf8');
 const caddy = readFileSync(join(root, 'Caddyfile.site'), 'utf8');
 const siteCss = readFileSync(join(root, 'src/styles/site.css'), 'utf8');
 
+assert.match(
+  siteCss,
+  /\.server-list\s*\{\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);\s*\}/,
+);
 assert.equal(count(dockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 2);
 assert.equal(count(torDockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 1);
 assert.match(dockerfile, /RUN caddy validate --config \/etc\/caddy\/Caddyfile --adapter caddyfile/);
