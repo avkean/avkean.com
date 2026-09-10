@@ -7,7 +7,7 @@
 	header {
 		Onion-Location "http://avkean56kkkrrjvqksx6rjlidh3ws4ad6pzefs5mxqchw6p634aaawad.onion{http.request.orig_uri}"
 		X-I2P-Location "http://avkeanm7ldgvhz36zij3ntphilipw2dc43j4rhqumzvmh7usanta.b32.i2p{http.request.orig_uri}"
-		Content-Security-Policy "default-src 'none'; script-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+		Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
 		X-Content-Type-Options nosniff
 		X-Frame-Options DENY
 		Referrer-Policy no-referrer
@@ -25,6 +25,9 @@
 
 	@tls_proxy header X-Forwarded-Proto https
 	header @tls_proxy Strict-Transport-Security "max-age=31536000"
+
+	@www host www.avkean.com
+	redir @www https://avkean.com{uri} permanent
 
 	rewrite /sitemap.xml /sitemap-index.xml
 

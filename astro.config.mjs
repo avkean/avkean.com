@@ -9,6 +9,7 @@ export default defineConfig({
       filter: (page) => !page.includes('/404'),
     }),
   ],
+  vite: { build: { assetsInlineLimit: 0 } },
   build: {
     inlineStylesheets: 'never',
   },

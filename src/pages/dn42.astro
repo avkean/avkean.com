@@ -1,4 +1,5 @@
 ---
+import EmailContact from '../components/EmailContact.astro';
 import Base from '../layouts/Base.astro';
 ---
 
@@ -18,8 +19,8 @@ import Base from '../layouts/Base.astro';
   <section class="page-section">
     <h2>peering</h2>
     <p>
-      Peering is open. <a href="mailto:infra@avkean.com">Email me</a>{' '}
-      your ASN, endpoint, WireGuard key, and link-local. Use whichever node is closer.
+      Peering is open. <a href="#peering-contact">Email me</a>{' '}
+      your ASN, endpoint, WireGuard key, and link-local.
     </p>
     <p>
       Sessions are MP-BGP over IPv6 link-local with extended next hop, dn42 routes only. Current
@@ -31,7 +32,7 @@ import Base from '../layouts/Base.astro';
   <section class="page-section">
     <h2>nodes</h2>
     <p class="node-note">
-      Both listen on port <code class="port">2<var>XXXX</var></code>. XXXX is the last four digits of
+      The Singapore node listens on port <code class="port">2<var>XXXX</var></code>. XXXX is the last four digits of
       your ASN.
     </p>
 
@@ -59,30 +60,6 @@ import Base from '../layouts/Base.astro';
           </div>
         </dl>
       </li>
-
-      <li class="plate node fill-violet">
-        <h3>us <span>Oregon</span></h3>
-        <dl class="node-fields">
-          <div>
-            <dt>endpoint</dt>
-            <dd>
-              <code>us.dn42.avkean.com:<span class="port">2<var>XXXX</var></span></code>
-            </dd>
-          </div>
-          <div>
-            <dt>wireguard</dt>
-            <dd><code>avkeanGRr7VyffvrWYaMImhSk7Bmb1i1UTipfDD1JDY=</code></dd>
-          </div>
-          <div>
-            <dt>link-local</dt>
-            <dd><code>fe80::422</code></dd>
-          </div>
-          <div>
-            <dt>addresses</dt>
-            <dd><code>172.20.242.22</code><br /><code>fd42:4242:421::2</code></dd>
-          </div>
-        </dl>
-      </li>
     </ul>
   </section>
 
@@ -106,8 +83,8 @@ import Base from '../layouts/Base.astro';
         <dd><code>AVKEAN-MNT</code><br /><code>AVKEAN-DN42</code></dd>
       </div>
       <div>
-        <dt>contact</dt>
-        <dd><a href="mailto:infra@avkean.com">infra@avkean.com</a></dd>
+        <dt id="peering-contact">contact</dt>
+        <dd><EmailContact mailbox="infra" /></dd>
       </div>
       <div>
         <dt>looking glass</dt>

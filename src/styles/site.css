@@ -109,7 +109,6 @@ ul {
 
 .site {
   width: min(calc(100% - var(--s4)), 700px);
-  max-width: 700px;
   margin-inline: auto;
 }
 
@@ -363,7 +362,6 @@ main[tabindex="-1"]:focus {
 }
 
 .contact-field .fingerprint {
-  font: 500 var(--contact-size) / var(--line) var(--mono);
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -507,10 +505,6 @@ var {
 .nodes {
   grid-template-columns: 1fr;
   gap: var(--s2);
-}
-
-.node {
-  padding: var(--s2);
 }
 
 .node h3 {

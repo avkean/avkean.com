@@ -1,6 +1,8 @@
 # avkean.com
 
-Personal site built with Astro. Static HTML, external CSS, local fonts, and no JavaScript.
+Personal site built with Astro, with local fonts and external CSS.
+A small script decodes email links on load; without JavaScript, addresses appear
+as `name [at] avkean.com`. This deters basic harvesting, not browser-based bots.
 
 ```sh
 npm ci

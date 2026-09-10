@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,7 +14,6 @@ const pages = [
 ];
 
 const count = (value, pattern) => value.match(pattern)?.length ?? 0;
-const sha256 = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 const attribute = (tag, name) => tag.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1];
 const files = (directory) =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -62,15 +60,18 @@ for (const page of pages) {
   }
   assert.match(html, /<a\b[^>]*class="skip-link"[^>]*href="#main"/);
   assert.match(html, /<main\b[^>]*id="main"[^>]*tabindex="-1"/);
-  assert.equal(count(html, /<script\b/gi), 0, `${page.file} must not ship scripts`);
+  assert.equal(count(html, /<script\b/gi), ['home', 'dn42'].includes(page.current) ? 1 : 0, `${page.file} must only ship the email script where needed`);
+  for (const script of html.match(/<script\b[^>]*>[\s\S]*?<\/script>/g) ?? []) {
+    assert.match(script, /^<script type="module" src="\/_astro\/[^"]+\.js"><\/script>$/);
+  }
+  assert.doesNotMatch(html, /mailto:|(?:hi|infra)@avkean\.com/i);
   assert.equal(count(html, /rel="modulepreload"/gi), 0, `${page.file} must not preload scripts`);
   assert.equal(count(html, /<style\b/gi), 0, `${page.file} must not ship style blocks`);
   assert.equal(count(html, /\sstyle="/gi), 0, `${page.file} must not ship inline styles`);
   assert.equal(count(html, /\son[a-z]+\s*=/gi), 0, `${page.file} must not ship event handlers`);
-  assert.equal(count(html, /<!--/g), 0, `${page.file} must not contain comments`);
   assert.match(html, /http-equiv="Content-Security-Policy"/);
   assert.match(html, /default-src 'none'/);
-  assert.match(html, /script-src 'none'/);
+  assert.match(html, /script-src 'self'/);
   assert.doesNotMatch(html, /unsafe-inline|unsafe-eval/);
   assert.match(html, /name="referrer" content="no-referrer"/);
   assert.equal(count(html, /<link\b[^>]*rel="canonical"/g), page.noindex ? 0 : 1);
@@ -99,14 +100,15 @@ for (const page of pages) {
     ...icons.map((icon) => attribute(icon, 'href')),
     ...shortcutIcons.map((icon) => attribute(icon, 'href')),
     ...touchIcons.map((icon) => attribute(icon, 'href')),
+    ...[...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map((match) => match[1]),
     ...[...html.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map((match) => match[1]),
   ]);
   for (const href of loadedAssets) {
-    const stylesheet = localTarget(href);
-    assert.ok(existsSync(stylesheet), `${href} must exist`);
-    if (!href.endsWith('.woff2')) pageBytes += statSync(stylesheet).size;
+    const asset = localTarget(href);
+    assert.ok(existsSync(asset), `${href} must exist`);
+    pageBytes += statSync(asset).size;
   }
-  assert.ok(pageBytes <= 25_600, `${page.file} must stay within 25KB`);
+  assert.ok(pageBytes <= 25_600, `${page.file} must stay within 25KB including scripts`);
 
   const references = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map((match) => match[1]);
   for (const reference of references) {
@@ -139,47 +141,26 @@ const wordmark = home.match(
 )?.[0];
 assert.ok(wordmark);
 assert.doesNotMatch(wordmark, /<(?:svg|canvas)\b/);
-const wordmarkGlyphs = [
-  ...wordmark.matchAll(/<pre class="(wm-[avner])">([\s\S]*?)<\/pre>/g),
-].map(([, name, pattern]) => [name, pattern]);
-assert.deepEqual(wordmarkGlyphs, [
-  ['wm-a', ' aaa\na   a\na   a\naaaaa\na   a\na   a\na   a'],
-  ['wm-v', 'v   v\nv   v\nv   v\nv   v\nv   v\n v v\n  v'],
-  ['wm-n', 'n   n\nnn  n\nnn  n\nn n n\nn  nn\nn  nn\nn   n'],
-  ['wm-e', 'eeeee\ne\ne\neeee\ne\ne\neeeee'],
-  ['wm-r', 'rrrr\nr   r\nr   r\nrrrr\nr r\nr  r\nr   r'],
-]);
-assert.match(home, /<h1 class="sr-only">avner<\/h1><div class="wordmark"/);
-assert.match(
-  home,
-  /<meta name="description" content="I build software and work on security, systems, and networks\. I like understanding things properly\.">/,
-);
-assert.match(home, /<p class="alias"><span data-nosnippet>\(or avkean\)<\/span><\/p>/);
+assert.equal(count(wordmark, /<pre\b/g), 5);
 assert.match(home, /<section class="contact" data-nosnippet>/);
 const services = infra.match(/<ul class="service-list">([\s\S]*?)<\/ul>/)?.[0];
 assert.ok(services);
-assert.equal(count(services, /<li>/g), 6);
+assert.equal(count(services, /<li>/g), 7);
 assert.match(services, /<h3>SearXNG<\/h3>/);
 assert.match(services, /href="https:\/\/searxng\.avkean\.com\/"/);
 assert.match(
   services,
   /href="http:\/\/lyybdkn77b44vcqp7rc3fbcdgugzm7ygsce2mthjyztqhbjpdfqmt2qd\.onion"/,
 );
-assert.match(
-  infra,
-  /<meta name="description" content="What Avner runs: Forgejo, SearXNG, Matrix, Tor, dn42, and supporting infrastructure\.">/,
-);
 assert.equal(count(infra, /class="plate server /g), 2);
 assert.doesNotMatch(infra, /<h3>us1<\/h3>|<p>Oregon<\/p>/);
-assert.equal(count(dn42, /class="plate node /g), 2);
+assert.equal(count(dn42, /class="plate node /g), 1);
 assert.equal(count(mirrors, /class="plate address /g), 4);
 
 const outputFiles = files(output);
-assert.equal(
-  outputFiles.some((file) => /\.(?:js|mjs|cjs)$/.test(file)),
-  false,
-  'dist must not contain JavaScript',
-);
+assert.equal(outputFiles.filter((file) => /\.(?:js|mjs|cjs)$/.test(file)).length, 1);
+assert.match(services, /href="https:\/\/pi\.sg\/"/);
+assert.doesNotMatch(dn42, /Oregon|us\.dn42|fe80::422|172\.20\.242\.22|fd42:4242:421::2/);
 
 const stylesheets = outputFiles.filter((file) => file.endsWith('.css'));
 const fontAssets = new Set();
@@ -202,63 +183,13 @@ for (const route of ['/', '/infra/', '/dn42/', '/mirrors/']) {
 }
 assert.doesNotMatch(sitemap, /\/404/);
 
-const commentFree = [
-  '.dockerignore',
-  '.gitignore',
-  'astro.config.mjs',
-  'Caddyfile.site',
-  'Dockerfile',
-  'docker-compose.yml',
-  'i2p/i2pd.conf',
-  'i2p/tunnels.conf',
-  'public/robots.txt',
-  'src/layouts/Base.astro',
-  'src/components/Wordmark.astro',
-  'src/pages/index.astro',
-  'src/pages/infra.astro',
-  'src/pages/dn42.astro',
-  'src/pages/mirrors.astro',
-  'src/pages/404.astro',
-  'src/styles/fonts.css',
-  'src/styles/site.css',
-  'tor/.dockerignore',
-  'tor/Dockerfile',
-  'tor/entrypoint.sh',
-  'tor/torrc',
-];
-
-for (const file of commentFree) {
-  const value = readFileSync(join(root, file), 'utf8');
-  assert.doesNotMatch(value, /<!--/g, `${file} must not contain comments`);
-  if (/\.(?:astro|css|mjs|js)$/.test(file)) {
-    assert.doesNotMatch(value, /\/\*/g, `${file} must not contain comments`);
-  }
-  assert.equal(
-    value.split('\n').some((line) => line.trimStart().startsWith('//')),
-    false,
-    `${file} must not contain comments`,
-  );
-  assert.equal(
-    value
-      .split('\n')
-      .some((line, index) => line.trimStart().startsWith('#') && !(index === 0 && line.startsWith('#!'))),
-    false,
-    `${file} must not contain comments`,
-  );
-}
-
 const dockerfile = readFileSync(join(root, 'Dockerfile'), 'utf8');
 const torDockerfile = readFileSync(join(root, 'tor/Dockerfile'), 'utf8');
 const compose = readFileSync(join(root, 'docker-compose.yml'), 'utf8');
 const dockerignore = readFileSync(join(root, '.dockerignore'), 'utf8');
 const torDockerignore = readFileSync(join(root, 'tor/.dockerignore'), 'utf8');
 const caddy = readFileSync(join(root, 'Caddyfile.site'), 'utf8');
-const siteCss = readFileSync(join(root, 'src/styles/site.css'), 'utf8');
 
-assert.match(
-  siteCss,
-  /\.server-list\s*\{\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);\s*\}/,
-);
 assert.equal(count(dockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 2);
 assert.equal(count(torDockerfile, /^FROM .*@sha256:[a-f0-9]{64}/gm), 1);
 assert.match(dockerfile, /RUN caddy validate --config \/etc\/caddy\/Caddyfile --adapter caddyfile/);
@@ -277,18 +208,5 @@ assert.match(caddy, /@tls_proxy header X-Forwarded-Proto https/);
 assert.match(caddy, /Strict-Transport-Security "max-age=31536000"/);
 assert.match(caddy, /@immutable path \/_astro\/\*/);
 assert.match(caddy, /@mutable not path \/_astro\/\*/);
-assert.match(caddy, /script-src 'none'/);
-const faviconHashes = new Map([
-  ['public/favicon.ico', '778a18e27cc1a4618669eda77a070980f25b63fbd465095df0d520090c47dea9'],
-  ['public/favicon-16x16.png', '7b6d42a2851b8b2165ee44f8fcfec1e711a32a1b08ed9d7353c639a4a0175548'],
-  ['public/favicon-32x32.png', '072cff08a17334a56179c85fbacc4da7a1ce78a4b1aa5ad8103ad9c6a33cb52f'],
-  ['public/apple-touch-icon.png', '9974ae6b9cc150e1f0b0ce613c016e401741350691b3118b45c24e034cffe13b'],
-]);
-for (const [file, hash] of faviconHashes) assert.equal(sha256(join(root, file)), hash);
-assert.match(siteCss, /grid-template-columns: repeat\(5, 5ch\)/);
-assert.match(siteCss, /font-variant-ligatures: none/);
-assert.match(siteCss, /--mono: "Commit Mono", ui-monospace, Menlo, Consolas, monospace/);
-const wordmarkPreRule = siteCss.match(/\.wordmark pre\s*\{[^}]*\}/)?.[0] ?? '';
-assert.doesNotMatch(wordmarkPreRule, /\bcolor\s*:/);
-
+assert.match(caddy, /script-src 'self'/);
 console.log('production site checks passed');

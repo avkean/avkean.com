@@ -1,0 +1,11 @@
+---
+interface Props {
+  mailbox: 'hi' | 'infra';
+}
+const { mailbox } = Astro.props;
+const encoded = Buffer.from(`${mailbox}@avkean.com`).toString('base64');
+---
+
+<a data-email={encoded} data-nosnippet>{mailbox} [at] avkean.com</a>
+
+<script src="../scripts/email-contact.ts"></script>

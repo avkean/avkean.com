@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
 
 const origin = process.env.SITE_ORIGIN ?? 'http://127.0.0.1:4410';
 const securityHeaders = [
@@ -70,5 +72,19 @@ const forwardedMissing = await request('/not-found?source=hsts-test', {
 });
 assert.equal(forwardedMissing.status, 404);
 assert.equal(forwardedMissing.headers.get('strict-transport-security'), 'max-age=31536000');
+
+
+const www = await new Promise((resolve, reject) => {
+  const target = url('/dn42/?source=www-test');
+  const send = target.protocol === 'https:' ? httpsRequest : httpRequest;
+  const req = send(target, { headers: { Host: 'www.avkean.com' } }, (response) => {
+    response.resume();
+    resolve(response);
+  });
+  req.on('error', reject);
+  req.end();
+});
+assert.equal(www.statusCode, 301);
+assert.equal(www.headers.location, 'https://avkean.com/dn42/?source=www-test');
 
 console.log('production HTTP checks passed');
