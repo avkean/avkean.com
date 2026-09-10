@@ -6,6 +6,7 @@ const { mailbox } = Astro.props;
 const encoded = Buffer.from(`${mailbox}@avkean.com`).toString('base64');
 ---
 
-<a data-email={encoded} data-nosnippet>{mailbox} [at] avkean.com</a>
+<a data-email={encoded} data-nosnippet></a>
+<noscript><a data-nosnippet>{mailbox} [at] avkean.com</a></noscript>
 
 <script src="../scripts/email-contact.ts"></script>

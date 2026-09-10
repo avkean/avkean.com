@@ -1,5 +1,6 @@
 ---
 import '../styles/fonts.css';
+import contactFont from '../fonts/commit-mono-subset-500.woff2?url';
 import '../styles/site.css';
 
 interface Props {
@@ -30,6 +31,7 @@ const navigation = [
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="preload" href={contactFont} as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {import.meta.env.PROD && <meta http-equiv="Content-Security-Policy" content={csp} />}
     <meta name="referrer" content="no-referrer" />

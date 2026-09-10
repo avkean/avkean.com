@@ -326,7 +326,7 @@ main[tabindex="-1"]:focus {
   min-width: 0;
   display: grid;
   grid-template-columns: 84px minmax(0, 1fr);
-  align-items: baseline;
+  align-items: start;
   gap: var(--s2);
 }
 
@@ -343,12 +343,14 @@ main[tabindex="-1"]:focus {
 }
 
 .contact-field dt {
+  padding-block: 8px;
   color: var(--muted);
   font: 500 var(--contact-size) / var(--line) var(--mono);
 }
 
 .contact-field dd {
   min-width: 0;
+  min-height: 44px;
 }
 
 .contact-field a {
@@ -733,4 +735,8 @@ var {
   .contact a {
     color: #111;
   }
+}
+
+a[data-email]:empty {
+  display: none;
 }
