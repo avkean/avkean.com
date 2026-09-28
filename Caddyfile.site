@@ -40,6 +40,9 @@
 	@pgp path /pgp.asc
 	header @pgp Content-Type "text/plain; charset=utf-8"
 
+	@nfo path /whoami.nfo
+	header @nfo Content-Type "text/plain; charset=utf-8"
+
 	handle_errors {
 		import security_headers
 		@tls_proxy_error header X-Forwarded-Proto https

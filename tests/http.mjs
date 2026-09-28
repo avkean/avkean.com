@@ -64,6 +64,11 @@ const pgp = await request('/pgp.asc');
 assert.equal(pgp.status, 200);
 assert.equal(pgp.headers.get('content-type'), 'text/plain; charset=utf-8');
 
+const nfo = await request('/whoami.nfo');
+assert.equal(nfo.status, 200);
+assert.equal(nfo.headers.get('content-type'), 'text/plain; charset=utf-8');
+assert.equal(nfo.headers.get('cache-control'), 'no-cache');
+
 const forwarded = await request('/', { headers: { 'X-Forwarded-Proto': 'https' } });
 assert.equal(forwarded.headers.get('strict-transport-security'), 'max-age=31536000');
 

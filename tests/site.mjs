@@ -174,6 +174,9 @@ for (const stylesheet of stylesheets) {
 }
 assert.equal(fontAssets.size, 2);
 
+const nfo = readFileSync(join(output, 'whoami.nfo'), 'utf8');
+assert.ok(nfo.split('\n').every((line) => [...line].length <= 80), 'whoami.nfo must fit in 80 columns');
+
 const sitemap = outputFiles
   .filter((file) => file.endsWith('.xml'))
   .map((file) => readFileSync(file, 'utf8'))
