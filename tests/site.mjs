@@ -145,8 +145,9 @@ assert.equal(count(wordmark, /<pre\b/g), 5);
 assert.match(home, /<section class="contact" data-nosnippet>/);
 const services = infra.match(/<ul class="service-list">([\s\S]*?)<\/ul>/)?.[0];
 assert.ok(services);
-assert.equal(count(services, /<li>/g), 8);
+assert.equal(count(services, /<li>/g), 9);
 assert.match(services, /href="https:\/\/translate\.avkean\.com\/"/);
+assert.match(services, /href="https:\/\/compress\.avkean\.com\/"/);
 assert.match(services, /<h3>SearXNG<\/h3>/);
 assert.match(services, /href="https:\/\/searxng\.avkean\.com\/"/);
 assert.match(
