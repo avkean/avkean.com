@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="privacy · avner"
+  description="How avkean's public services handle your data: Translate, search, and pi.sg."
+>
+  <header class="page-head">
+    <h1>privacy</h1>
+    <p class="lede">
+      Your privacy means a lot to me, so I try to collect as little data as possible.
+    </p>
+  </header>
+
+  <section class="page-section" id="everything">
+    <h2>all services</h2>
+    <p>
+      There are no accounts, ads, analytics or tracking. Everything runs on my own server in
+      Singapore behind{' '}<a href="https://bunny.net/privacy" target="_blank" rel="noopener"
+        >Bunny CDN</a
+      >, and neither of us keeps access logs for these services, only error logs for a short
+      while.
+    </p>
+  </section>
+
+  <section class="page-section" id="translate">
+    <h2>translate</h2>
+    <p>
+      Your text is encrypted on my server and translated by{' '}<a
+        href="https://www.privatemode.ai/"
+        target="_blank"
+        rel="noopener">Privatemode</a
+      >{' '}on confidential computing hardware, so they can't read it either, and nothing gets
+      stored. Your IP is only counted in memory for a minute to stop abuse.
+    </p>
+  </section>
+
+  <section class="page-section" id="search">
+    <h2>search</h2>
+    <p>
+      Searches and suggestions go out to Google, DuckDuckGo, Brave and Kagi from my server, so they
+      never see your IP, and I don't log them. The bot check sets a cookie tied to your IP that
+      lasts 7 days, while request counts per IP expire within an hour.
+    </p>
+  </section>
+
+  <section class="page-section" id="pi">
+    <h2>pi.sg</h2>
+    <p>
+      Pi has no link database, since the address is stored in the link itself. With extra
+      compression on, your link is compressed in my server's memory and never saved, and Pi
+      doesn't keep any logs.
+    </p>
+  </section>
+
+  <section class="page-section" id="this-site">
+    <h2>this website</h2>
+    <p>There are no cookies, tracking or access logs here either.</p>
+    <p class="updated">Last updated 29 September 2026</p>
+  </section>
+</Base>

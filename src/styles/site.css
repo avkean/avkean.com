@@ -491,6 +491,12 @@ var {
   font-weight: 700;
 }
 
+.updated {
+  margin-top: var(--s2);
+  color: var(--muted);
+  font: 500 var(--mono-size) / var(--line) var(--mono);
+}
+
 .node-note {
   padding-block: var(--s1);
   border-block: 1px dotted var(--rule);
