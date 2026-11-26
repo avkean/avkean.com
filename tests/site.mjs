@@ -155,8 +155,7 @@ assert.match(
   services,
   /href="http:\/\/lyybdkn77b44vcqp7rc3fbcdgugzm7ygsce2mthjyztqhbjpdfqmt2qd\.onion"/,
 );
-assert.equal(count(infra, /class="plate server /g), 2);
-assert.doesNotMatch(infra, /<h3>us1<\/h3>|<p>Oregon<\/p>/);
+assert.doesNotMatch(infra, /servers|ratatoskr/i);
 assert.equal(count(dn42, /class="plate node /g), 1);
 assert.equal(count(mirrors, /class="plate address /g), 4);
 
@@ -179,6 +178,7 @@ assert.equal(fontAssets.size, 2);
 
 const nfo = readFileSync(join(output, 'whoami.nfo'), 'utf8');
 assert.ok(nfo.split('\n').every((line) => [...line].length <= 80), 'whoami.nfo must fit in 80 columns');
+assert.doesNotMatch(nfo, /servers|ratatoskr/i);
 
 const sitemap = outputFiles
   .filter((file) => file.endsWith('.xml'))

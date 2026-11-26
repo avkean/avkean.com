@@ -465,30 +465,8 @@ var {
   background: var(--fill-plum);
 }
 
-.server-list {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.server {
-  min-height: 140px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.server h3,
 .node h3 {
   font: 700 var(--mono-size) / var(--line) var(--mono);
-}
-
-.server p {
-  font-weight: 700;
-}
-
-.closing {
-  margin-top: var(--s2);
-  color: var(--soft);
-  font-weight: 700;
 }
 
 .updated {
@@ -647,15 +625,6 @@ var {
 @media (max-width: 639px) {
   .site-nav {
     gap: var(--s1);
-  }
-
-  .server-list {
-    grid-template-columns: 1fr;
-    gap: var(--s2);
-  }
-
-  .server {
-    min-height: 112px;
   }
 
   .address {

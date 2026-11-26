@@ -28,15 +28,14 @@
       │                                                                        │
       │  Infra                                                                 │
       │                                                                        │
-      │  A few public services and the servers behind them.                    │
-      │                                                    ▄▄████▄▄            │
-      │  pi.sg    link compressor, stores no links        ███▀   ▀██   ▄       │
-      │  searxng  searxng.avkean.com, also on tor        ████         ▄██▄     │
-      │  dn42     AS4242420421, peering is open          ▀███▄     ▄▄██▄██     │
-      │  tor      ratatoskr, a relay                      ▀████▄ ▄█████▀       │
-      │  status   status.avkean.com                        ▀███████████ ▀      │
-      │                                                      ▀▀▀▀  ▀▀▀▀        │
-┌─────│  Everything else runs quietly.                       ratatoskr         │
+      │  A few public services I run.                                          │
+      │                                                                        │
+      │  pi.sg    link compressor, stores no links                             │
+      │  searxng  searxng.avkean.com, also on tor                              │
+      │  dn42     AS4242420421, peering is open                                │
+      │  status   status.avkean.com                                            │
+      │                                                                        │
+┌─────│  Everything else runs quietly.                                         │
 │     │                                                                        │
 │     └────────────────────────────────────────────────────────────────────────┘
 │                                                                  │
